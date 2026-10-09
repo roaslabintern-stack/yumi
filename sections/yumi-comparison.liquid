@@ -17,7 +17,7 @@
     {%- endcapture -%}
     <h2 class="y-heading y-h2 y-center">
       {{- section.settings.heading | strip -}}
-      {%- if brand_html != blank %} <span class="y-brand-inline">{{ brand_html }}</span>{% endif -%}
+      {%- if brand_html != blank and section.settings.brand_in_heading %} <span class="y-brand-inline">{{ brand_html }}</span>{% endif -%}
       {{- section.settings.heading_suffix | strip -}}
     </h2>
 
@@ -55,6 +55,7 @@
     { "type": "image_picker", "id": "logo", "label": "Logo (optional, ersetzt den Markennamen)" },
     { "type": "checkbox", "id": "logo_in_table", "label": "Logo auch im Tabellenkopf", "default": false },
     { "type": "text", "id": "heading_suffix", "label": "Überschrift-Ende", "default": "?" },
+    { "type": "checkbox", "id": "brand_in_heading", "label": "Marke in der Überschrift anzeigen", "default": true },
     { "type": "text", "id": "others_label", "label": "Label Andere", "default": "Others" },
     { "type": "header", "content": "Layout" },
     { "type": "color", "id": "background", "label": "Hintergrundfarbe", "default": "#ffffff" },

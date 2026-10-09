@@ -1,0 +1,237 @@
+{
+  "sections": {
+    "masthead": {
+      "type": "yumi-adv-masthead",
+      "settings": {}
+    },
+    "hero": {
+      "type": "yumi-adv-hero",
+      "settings": {}
+    },
+    "reasons": {
+      "type": "yumi-adv-reasons",
+      "blocks": {
+        "reason_1": {
+          "type": "reason",
+          "settings": {
+            "title": "Visibly smooths and perfects skin, instantly",
+            "text": "<p>This colour-adapting foundation glides on like silk, instantly <strong>blurring the look of fine lines, pores and uneven texture</strong>. Rather than settling into wrinkles, it moves with your skin for a smooth, natural finish that still looks like skin, just more even, softer and more refined.</p>",
+            "caption": "After a single application"
+          }
+        },
+        "reason_2": {
+          "type": "reason",
+          "settings": {
+            "title": "Softens the look of crepey neck skin",
+            "text": "<p>It blends seamlessly from face to neck, <strong>minimising the look of crepey texture</strong> while leaving a smooth, soft-focus finish. Because the shade adapts to your own tone, you can use the same foundation everywhere with no visible lines or colour mismatch.</p>",
+            "caption": ""
+          }
+        },
+        "reason_3": {
+          "type": "reason",
+          "settings": {
+            "title": "Restores your skin's \"bounce\"",
+            "text": "<p>When skin loses its spring, it doesn't bounce back the way it used to, and that can make fine lines look deeper. Skin-loving <strong>glycerin and vitamin E</strong> help skin look plumper, smoother and more supple from the very first wear.</p>",
+            "caption": "Visibly plumper-looking skin"
+          }
+        },
+        "reason_4": {
+          "type": "reason",
+          "settings": {
+            "title": "Helps fade the look of dark spots",
+            "text": "<p>Inspired by Korean skincare, this formula does more than simply mask uneven areas. It helps <strong>visibly soften the appearance of dark spots, discolouration and older marks</strong>, giving an even, natural-looking finish that never looks heavy.</p>",
+            "caption": ""
+          }
+        },
+        "reason_5": {
+          "type": "reason",
+          "settings": {
+            "title": "Built-in SPF 15",
+            "text": "<p>Everyday SPF 15 adds a light layer of protection against incidental sun, the kind that quietly leads to dark spots, fine lines and dullness. Lightweight, invisible and easy to wear every day. <strong>Under the Australian sun, always pair it with a dedicated broad-spectrum sunscreen</strong> for longer time outdoors.</p>",
+            "caption": ""
+          }
+        },
+        "reason_6": {
+          "type": "reason",
+          "settings": {
+            "title": "A fraction of the price of salon treatments",
+            "text": "<p>Why pay for expensive salon facials and department-store creams? This formula gives a <strong>visibly smoother, refreshed and polished look at home</strong>, without appointments, downtime or the luxury price tag.</p>",
+            "caption": ""
+          }
+        },
+        "reason_7": {
+          "type": "reason",
+          "settings": {
+            "title": "It keeps selling out (even in Korea)",
+            "text": "<p>When a product disappears from shelves in one of the most beauty-obsessed countries in the world, you know it isn't hype. With <strong>over 50,000 women</strong> now wearing it, word has spread because it delivers real, visible results. Stock moves fast, so if you're curious, it's worth grabbing yours while the offer lasts.</p>",
+            "caption": ""
+          }
+        }
+      },
+      "block_order": [
+        "reason_1",
+        "reason_2",
+        "reason_3",
+        "reason_4",
+        "reason_5",
+        "reason_6",
+        "reason_7"
+      ],
+      "settings": {}
+    },
+    "offer": {
+      "type": "yumi-adv-offer",
+      "settings": {
+        "product": "reverse-ageing-adaptive-foundation",
+        "subheading": "+ FREE YUMI Blender, Mystery Gift & Shipping"
+      }
+    },
+    "reviews": {
+      "type": "yumi-testimonials",
+      "blocks": {
+        "review_1": {
+          "type": "review",
+          "settings": {
+            "name": "Karen T., Brisbane",
+            "text": "<p>\"This foundation is the first one in years that doesn't sit in my lines. It just looks like me on a good day, and nobody can tell I'm wearing anything.\"</p>"
+          }
+        },
+        "review_2": {
+          "type": "review",
+          "settings": {
+            "name": "Michelle R., Perth",
+            "text": "<p>\"I was sceptical about a colour-changing formula, but it matched me perfectly on the first try. Now it's the only thing I wear.\"</p>"
+          }
+        },
+        "review_3": {
+          "type": "review",
+          "settings": {
+            "name": "Lorraine B., Melbourne",
+            "text": "<p>\"My skin is dry and sensitive, but this felt comfortable from the first wear. It blends so easily and my skin looks fresher all day.\"</p>"
+          }
+        },
+        "review_4": {
+          "type": "review",
+          "settings": {
+            "name": "Debbie S., Sydney",
+            "text": "<p>\"I've tried everything from the department stores. This is lighter, more natural and a fraction of the price.\"</p>"
+          }
+        },
+        "stat_1": {
+          "type": "stat",
+          "settings": {
+            "value": "94%",
+            "text": "said their skin instantly looked more even*"
+          }
+        },
+        "stat_2": {
+          "type": "stat",
+          "settings": {
+            "value": "97%",
+            "text": "said the shade matched perfectly*"
+          }
+        },
+        "stat_3": {
+          "type": "stat",
+          "settings": {
+            "value": "92%",
+            "text": "noticed fewer visible fine lines*"
+          }
+        }
+      },
+      "block_order": [
+        "review_1",
+        "review_2",
+        "review_3",
+        "review_4",
+        "stat_1",
+        "stat_2",
+        "stat_3"
+      ],
+      "settings": {
+        "eyebrow": "",
+        "heading": "Why YUMI is loved by over 50,000+ customers",
+        "padding_top": 32,
+        "padding_bottom": 24
+      }
+    },
+    "comparison": {
+      "type": "yumi-comparison",
+      "blocks": {
+        "row_1": {
+          "type": "row",
+          "settings": {
+            "text": "Adapts to skin tone"
+          }
+        },
+        "row_2": {
+          "type": "row",
+          "settings": {
+            "text": "SPF 15"
+          }
+        },
+        "row_3": {
+          "type": "row",
+          "settings": {
+            "text": "Lasts 16+ hours"
+          }
+        },
+        "row_4": {
+          "type": "row",
+          "settings": {
+            "text": "Feels lightweight"
+          }
+        },
+        "row_5": {
+          "type": "row",
+          "settings": {
+            "text": "No settling in fine lines"
+          }
+        },
+        "row_6": {
+          "type": "row",
+          "settings": {
+            "text": "Shade-match guarantee"
+          }
+        }
+      },
+      "block_order": [
+        "row_1",
+        "row_2",
+        "row_3",
+        "row_4",
+        "row_5",
+        "row_6"
+      ],
+      "settings": {
+        "heading": "Why traditional shade matching is outdated",
+        "heading_suffix": "",
+        "brand_in_heading": false,
+        "padding_top": 40,
+        "padding_bottom": 32
+      }
+    },
+    "cta": {
+      "type": "yumi-adv-cta",
+      "settings": {
+        "product": "reverse-ageing-adaptive-foundation"
+      }
+    },
+    "sticky": {
+      "type": "yumi-adv-sticky",
+      "settings": {
+        "product": "reverse-ageing-adaptive-foundation"
+      }
+    }
+  },
+  "order": [
+    "masthead",
+    "hero",
+    "reasons",
+    "offer",
+    "reviews",
+    "comparison",
+    "cta",
+    "sticky"
+  ]
+}

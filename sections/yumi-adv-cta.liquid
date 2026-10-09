@@ -1,0 +1,70 @@
+{{ 'yumi-pdp.css' | asset_url | stylesheet_tag }}
+{{ 'yumi-adv.css' | asset_url | stylesheet_tag }}
+<style>
+  #shopify-section-{{ section.id }} .y-section { --y-pt: {{ section.settings.padding_top }}px; --y-pb: {{ section.settings.padding_bottom }}px; }
+  #shopify-section-{{ section.id }} .yadv-cta { --cta-bg: {{ section.settings.background }}; }
+</style>
+
+{%- liquid
+  assign p = section.settings.product
+  assign link = section.settings.button_link
+  if link == blank and p != blank
+    assign link = p.url
+  endif
+  if link == blank
+    assign link = routes.all_products_collection_url
+  endif
+  assign checks = section.settings.checklist | newline_to_br | split: '<br />'
+-%}
+<div class="y-section">
+  <div class="yadv-cta">
+    <div class="yadv-cta__content">
+      {%- if section.settings.rating_text != blank -%}
+        <p class="yadv-cta__rating">
+          <span class="y-stars" aria-hidden="true">{%- for i in (1..5) -%}<svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L10 14.9l-5.2 2.8 1-5.9L1.5 7.7l5.9-.8z"/></svg>{%- endfor -%}</span>
+          <span>{{ section.settings.rating_text }}</span>
+        </p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2 class="yadv-cta__heading">{{ section.settings.heading }}</h2>{%- endif -%}
+      {%- if section.settings.text != blank -%}<div class="yadv-body">{{ section.settings.text }}</div>{%- endif -%}
+      {%- if section.settings.checklist != blank -%}
+        <ul class="yadv-checks" role="list">
+          {%- for line in checks -%}
+            {%- assign item = line | strip -%}
+            {%- if item != blank -%}<li>{% render 'yumi-icon', icon: 'check' %}<span>{{ item }}</span></li>{%- endif -%}
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+      {%- if section.settings.button_label != blank -%}<a class="yadv-btn" href="{{ link }}">{{ section.settings.button_label }}</a>{%- endif -%}
+    </div>
+    <div class="yadv-cta__media">
+      {%- if section.settings.image != blank -%}
+        {{ section.settings.image | image_url: width: 900 | image_tag: loading: 'lazy', sizes: '(min-width: 750px) 420px, 100vw', widths: '420, 640, 900', alt: '' }}
+      {%- else -%}
+        {{ 'lifestyle-2' | placeholder_svg_tag: 'y-ph' }}
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Advertorial Abschluss",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "product", "id": "product", "label": "Produkt", "info": "Für den Link, falls kein Button-Link gesetzt ist." },
+    { "type": "text", "id": "rating_text", "label": "Bewertungszeile", "default": "4.8/5 rated" },
+    { "type": "text", "id": "heading", "label": "Überschrift", "default": "Ready to find your perfect match?" },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Join over 50,000 women who've finally found their perfect shade. It's not a close match. It's not \"good enough\". It's your exact tone, every single time.</p>" },
+    { "type": "textarea", "id": "checklist", "label": "Checkliste", "default": "Adapts in 60 seconds\nMade for mature skin\nFree shipping Australia-wide\nToday only: up to 60% off", "info": "Ein Punkt pro Zeile." },
+    { "type": "text", "id": "button_label", "label": "Button-Text", "default": "Shop now →" },
+    { "type": "url", "id": "button_link", "label": "Button-Link", "info": "Leer = Produktseite." },
+    { "type": "image_picker", "id": "image", "label": "Bild" },
+    { "type": "color", "id": "background", "label": "Hintergrund", "default": "#f6f2f4" },
+    { "type": "range", "id": "padding_top", "label": "Abstand oben", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 32 },
+    { "type": "range", "id": "padding_bottom", "label": "Abstand unten", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 56 }
+  ],
+  "presets": [{ "name": "Advertorial Abschluss" }]
+}
+{% endschema %}

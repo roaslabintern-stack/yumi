@@ -1,0 +1,90 @@
+{{ 'yumi-pdp.css' | asset_url | stylesheet_tag }}
+{{ 'yumi-adv.css' | asset_url | stylesheet_tag }}
+<style>
+  #shopify-section-{{ section.id }} .y-section { --y-pt: {{ section.settings.padding_top }}px; --y-pb: {{ section.settings.padding_bottom }}px; }
+</style>
+
+<div class="y-section">
+  <div class="yadv-reasons">
+    {%- for block in section.blocks -%}
+      {%- liquid
+        assign flip = false
+        assign mod = forloop.index0 | modulo: 2
+        if section.settings.image_first == 'left' and mod == 1
+          assign flip = true
+        elsif section.settings.image_first == 'right' and mod == 0
+          assign flip = true
+        endif
+        assign has_pair = false
+        if block.settings.image_2 != blank
+          assign has_pair = true
+        endif
+      -%}
+      <div class="yadv-reason{% if flip %} yadv-reason--flip{% endif %}" {{ block.shopify_attributes }}>
+        <div class="yadv-reason__media">
+          <div class="yadv-reason__frame{% if has_pair %} yadv-reason__frame--pair{% endif %}">
+            <div class="yadv-reason__img">
+              {%- if block.settings.image != blank -%}
+                {{ block.settings.image | image_url: width: 800 | image_tag: loading: 'lazy', sizes: '(min-width: 750px) 360px, 100vw', widths: '360, 540, 800', alt: block.settings.title }}
+              {%- else -%}
+                {{ 'lifestyle-1' | placeholder_svg_tag: 'y-ph' }}
+              {%- endif -%}
+              {%- if has_pair and block.settings.label_1 != blank -%}<span class="yadv-reason__label">{{ block.settings.label_1 }}</span>{%- endif -%}
+            </div>
+            {%- if has_pair -%}
+              <div class="yadv-reason__img">
+                {{ block.settings.image_2 | image_url: width: 800 | image_tag: loading: 'lazy', sizes: '(min-width: 750px) 180px, 50vw', widths: '180, 360, 540, 800', alt: block.settings.title }}
+                {%- if block.settings.label_2 != blank -%}<span class="yadv-reason__label">{{ block.settings.label_2 }}</span>{%- endif -%}
+              </div>
+            {%- endif -%}
+          </div>
+          {%- if block.settings.caption != blank -%}<p class="yadv-reason__caption">{{ block.settings.caption }}</p>{%- endif -%}
+        </div>
+        <div class="yadv-reason__content">
+          <h2 class="yadv-reason__title">
+            {%- if section.settings.show_numbers -%}<span class="yadv-reason__num">{{ forloop.index }}.</span> {% endif -%}
+            {{ block.settings.title }}
+          </h2>
+          <div class="yadv-body">{{ block.settings.text }}</div>
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Advertorial Gründe",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "checkbox", "id": "show_numbers", "label": "Automatisch nummerieren", "default": true },
+    { "type": "select", "id": "image_first", "label": "Erstes Bild (Desktop)", "default": "left", "options": [
+      { "value": "left", "label": "Links, dann abwechselnd" }, { "value": "right", "label": "Rechts, dann abwechselnd" }
+    ] },
+    { "type": "range", "id": "padding_top", "label": "Abstand oben", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 24 },
+    { "type": "range", "id": "padding_bottom", "label": "Abstand unten", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 40 }
+  ],
+  "blocks": [
+    {
+      "type": "reason",
+      "name": "Grund",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Bild (bzw. Vorher)" },
+        { "type": "image_picker", "id": "image_2", "label": "Zweites Bild (Nachher, optional)", "info": "Mit zweitem Bild wird ein Vorher/Nachher-Paar angezeigt." },
+        { "type": "text", "id": "label_1", "label": "Label Bild 1", "default": "Before" },
+        { "type": "text", "id": "label_2", "label": "Label Bild 2", "default": "After" },
+        { "type": "text", "id": "caption", "label": "Bildunterschrift (optional)" },
+        { "type": "text", "id": "title", "label": "Titel", "default": "Visibly smooths and perfects skin, instantly" },
+        { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Describe the benefit here. Use <strong>bold</strong> for the key phrase.</p>" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Advertorial Gründe",
+      "blocks": [ { "type": "reason" }, { "type": "reason" }, { "type": "reason" } ]
+    }
+  ]
+}
+{% endschema %}

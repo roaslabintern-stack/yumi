@@ -14,7 +14,8 @@
     <div class="y-guar">
       <div class="y-guar__seal">
         {%- if section.settings.seal_image != blank -%}
-          {{ section.settings.seal_image | image_url: width: 240 | image_tag: loading: 'lazy', alt: section.settings.seal_days | append: ' ' | append: section.settings.seal_unit }}
+          {%- assign seal_alt = section.settings.seal_days | append: ' ' | append: section.settings.seal_unit | escape -%}
+          {{ section.settings.seal_image | image_url: width: 240 | image_tag: loading: 'lazy', alt: seal_alt }}
         {%- else -%}
           {%- assign seal_id = 'seal-' | append: section.id -%}
           <svg viewBox="0 0 120 120" width="88" height="88" role="img" aria-label="{{ section.settings.seal_top | escape }} {{ section.settings.seal_days | escape }} {{ section.settings.seal_unit | escape }} {{ section.settings.seal_bottom | escape }}">

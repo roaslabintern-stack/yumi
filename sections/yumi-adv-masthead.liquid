@@ -1,0 +1,77 @@
+{{ 'yumi-pdp.css' | asset_url | stylesheet_tag }}
+{{ 'yumi-adv.css' | asset_url | stylesheet_tag }}
+<style>
+  #shopify-section-{{ section.id }} .yadv-mast {
+    --mast-bar-bg: {{ section.settings.bar_color }};
+    --mast-bar-text: {{ section.settings.bar_text_color }};
+    --mast-bg: {{ section.settings.background }};
+  }
+  {%- if section.settings.hide_store_chrome -%}
+    /* Distraction-free landing page: hide the regular store header, announcement and footer */
+    .shopify-section-group-header-group, .shopify-section-group-footer-group { display: none !important; }
+  {%- endif -%}
+</style>
+
+{%- assign nav_items = section.settings.nav_items | split: ',' -%}
+<header class="yadv-mast">
+  {%- if section.settings.offer_text != blank -%}
+    <a class="yadv-mast__bar" href="{{ section.settings.offer_link | default: '#yadv-offer' }}">
+      <span class="yadv-mast__offer">{{ section.settings.offer_text }}</span>
+      {%- if section.settings.show_timer -%}
+        <span class="yadv-mast__timer" data-yadv-timer aria-label="{{ section.settings.timer_label | escape }}">00 : 00 : 00</span>
+      {%- endif -%}
+    </a>
+  {%- endif -%}
+  <div class="yadv-mast__brand">
+    <p class="yadv-mast__title">{{ section.settings.title }}</p>
+    {%- if section.settings.nav_items != blank -%}
+      <nav class="yadv-mast__nav" aria-label="{{ section.settings.title | escape }}">
+        {%- for item in nav_items -%}
+          {%- assign label = item | strip -%}
+          <span{% if label == section.settings.active_item %} class="is-active"{% endif %}>{{ label }}</span>
+        {%- endfor -%}
+      </nav>
+    {%- endif -%}
+  </div>
+</header>
+
+<script>
+  (function () {
+    document.querySelectorAll('[data-yadv-timer]:not([data-ready])').forEach(function (el) {
+      el.setAttribute('data-ready', 'true');
+      function tick() {
+        var now = new Date();
+        var end = new Date(now);
+        end.setHours(24, 0, 0, 0);
+        var s = Math.max(0, Math.floor((end - now) / 1000));
+        el.textContent = [Math.floor(s / 3600), Math.floor((s % 3600) / 60), s % 60].map(function (n) { return String(n).padStart(2, '0'); }).join(' : ');
+      }
+      tick();
+      setInterval(tick, 1000);
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Advertorial Kopf",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "checkbox", "id": "hide_store_chrome", "label": "Shop-Header & Footer auf dieser Seite ausblenden", "default": true, "info": "Ablenkungsfreie Landingpage für Ads." },
+    { "type": "header", "content": "Angebotsleiste" },
+    { "type": "inline_richtext", "id": "offer_text", "label": "Text", "default": "Up to <strong>60% off</strong> + FREE gifts" },
+    { "type": "url", "id": "offer_link", "label": "Link", "info": "Leer = springt zum Angebot auf dieser Seite." },
+    { "type": "checkbox", "id": "show_timer", "label": "Countdown (bis Mitternacht)", "default": true },
+    { "type": "text", "id": "timer_label", "label": "Countdown-Beschriftung (Screenreader)", "default": "Offer ends in" },
+    { "type": "color", "id": "bar_color", "label": "Leiste Hintergrund", "default": "#1d1a1c" },
+    { "type": "color", "id": "bar_text_color", "label": "Leiste Text", "default": "#ffffff" },
+    { "type": "header", "content": "Magazin-Kopf" },
+    { "type": "text", "id": "title", "label": "Magazin-Name", "default": "The Australian Beauty Edit" },
+    { "type": "text", "id": "nav_items", "label": "Rubriken", "default": "Fashion, Beauty, Skin", "info": "Mit Komma getrennt." },
+    { "type": "text", "id": "active_item", "label": "Aktive Rubrik", "default": "Beauty" },
+    { "type": "color", "id": "background", "label": "Hintergrund", "default": "#f3eef1" }
+  ],
+  "presets": [{ "name": "Advertorial Kopf" }]
+}
+{% endschema %}

@@ -1,0 +1,71 @@
+{{ 'yumi-adv.css' | asset_url | stylesheet_tag }}
+{%- liquid
+  assign p = section.settings.product
+  assign link = section.settings.button_link
+  if link == blank and p != blank
+    assign link = p.url
+  endif
+  if link == blank
+    assign link = routes.all_products_collection_url
+  endif
+-%}
+<div class="yadv-sticky{% if section.settings.show_after_scroll %} yadv-sticky--delayed{% else %} is-visible{% endif %}" data-yadv-sticky style="--sticky-btn: {{ section.settings.button_color }};">
+  <a class="yadv-btn yadv-sticky__btn" href="{{ link }}">{{ section.settings.button_label }}</a>
+  {%- if section.settings.proof_text != blank -%}
+    <p class="yadv-sticky__proof">
+      <span class="yadv-sticky__avatars" aria-hidden="true">
+        {%- assign avatars = 'avatar_1,avatar_2,avatar_3' | split: ',' -%}
+        {%- for key in avatars -%}
+          <span>
+            {%- if section.settings[key] != blank -%}
+              {{ section.settings[key] | image_url: width: 60 | image_tag: loading: 'lazy', alt: '' }}
+            {%- else -%}
+              {{ 'image' | placeholder_svg_tag: 'y-ph' }}
+            {%- endif -%}
+          </span>
+        {%- endfor -%}
+      </span>
+      <span>{{ section.settings.proof_text }}</span>
+    </p>
+  {%- endif -%}
+</div>
+
+<script>
+  (function () {
+    var bar = document.querySelector('[data-yadv-sticky]');
+    if (!bar) return;
+    document.body.classList.add('has-yadv-sticky');
+    if (!bar.classList.contains('yadv-sticky--delayed')) return;
+    var queued = false;
+    function update() {
+      queued = false;
+      bar.classList.toggle('is-visible', window.scrollY > 400);
+    }
+    window.addEventListener('scroll', function () {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(update);
+    }, { passive: true });
+    update();
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Advertorial Sticky-Button",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "product", "id": "product", "label": "Produkt", "info": "Für den Link, falls kein Button-Link gesetzt ist." },
+    { "type": "text", "id": "button_label", "label": "Button-Text", "default": "60% OFF + FREE GIFTS →" },
+    { "type": "url", "id": "button_link", "label": "Button-Link", "info": "Leer = Produktseite." },
+    { "type": "color", "id": "button_color", "label": "Button-Farbe", "default": "#e0609b" },
+    { "type": "checkbox", "id": "show_after_scroll", "label": "Erst nach dem Scrollen einblenden", "default": true },
+    { "type": "text", "id": "proof_text", "label": "Social-Proof-Text", "default": "Loved by 50,000+ women" },
+    { "type": "image_picker", "id": "avatar_1", "label": "Avatar 1" },
+    { "type": "image_picker", "id": "avatar_2", "label": "Avatar 2" },
+    { "type": "image_picker", "id": "avatar_3", "label": "Avatar 3" }
+  ],
+  "presets": [{ "name": "Advertorial Sticky-Button" }]
+}
+{% endschema %}

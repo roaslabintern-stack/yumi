@@ -1,0 +1,77 @@
+{{ 'yumi-pdp.css' | asset_url | stylesheet_tag }}
+{{ 'yumi-adv.css' | asset_url | stylesheet_tag }}
+<style>
+  #shopify-section-{{ section.id }} .y-section { --y-pt: {{ section.settings.padding_top }}px; --y-pb: {{ section.settings.padding_bottom }}px; }
+</style>
+
+<div class="y-section">
+  <article class="yadv-article">
+    <div class="yadv-meta">
+      {%- if section.settings.tag_label != blank -%}<span class="yadv-tag">{{ section.settings.tag_label }}</span>{%- endif -%}
+      {%- if section.settings.read_time != blank -%}<span class="yadv-readtime">{{ section.settings.read_time }}</span>{%- endif -%}
+    </div>
+    {%- if section.settings.headline != blank -%}
+      <h1 class="yadv-headline">{{ section.settings.headline }}</h1>
+    {%- endif -%}
+
+    <div class="yadv-hero-media">
+      {%- if section.settings.image != blank -%}
+        {%- assign hero_alt = section.settings.image.alt | default: section.settings.headline | strip_html | escape -%}
+        {{ section.settings.image | image_url: width: 1400 | image_tag: loading: 'eager', fetchpriority: 'high', sizes: '(min-width: 750px) 680px, 100vw', widths: '400, 680, 1000, 1400', alt: hero_alt }}
+      {%- else -%}
+        {{ 'product-1' | placeholder_svg_tag: 'y-ph' }}
+      {%- endif -%}
+    </div>
+
+    {%- if section.settings.intro != blank -%}<div class="yadv-body">{{ section.settings.intro }}</div>{%- endif -%}
+
+    {%- if section.settings.author_name != blank -%}
+      <div class="yadv-author">
+        <span class="yadv-author__avatar">
+          {%- if section.settings.author_avatar != blank -%}
+            {{ section.settings.author_avatar | image_url: width: 120 | image_tag: loading: 'lazy', alt: section.settings.author_name }}
+          {%- else -%}
+            {{ 'image' | placeholder_svg_tag: 'y-ph' }}
+          {%- endif -%}
+        </span>
+        <span class="yadv-author__text">
+          <strong>{{ section.settings.author_name }}</strong>
+          {%- if section.settings.author_role != blank -%}<small>{{ section.settings.author_role }}</small>{%- endif -%}
+        </span>
+        {%- if section.settings.verified_label != blank -%}
+          <span class="yadv-author__verified">{% render 'yumi-icon', icon: 'check' %}{{ section.settings.verified_label }}</span>
+        {%- endif -%}
+        {%- if section.settings.show_stars -%}
+          <span class="y-stars yadv-author__stars" aria-label="5 out of 5 stars">
+            {%- for i in (1..5) -%}<svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L10 14.9l-5.2 2.8 1-5.9L1.5 7.7l5.9-.8z"/></svg>{%- endfor -%}
+          </span>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </article>
+</div>
+
+{% schema %}
+{
+  "name": "Advertorial Einstieg",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "text", "id": "tag_label", "label": "Kategorie-Label", "default": "Most read 2026" },
+    { "type": "text", "id": "read_time", "label": "Lesezeit", "default": "3 min read" },
+    { "type": "inline_richtext", "id": "headline", "label": "Headline", "default": "Why Aussie Women Over 50 Are Swapping Their Foundation for This Korean Formula. <em>Here Are 7 Reasons Why.</em>", "info": "Kursiv formatierter Text wird pink hervorgehoben." },
+    { "type": "image_picker", "id": "image", "label": "Bild" },
+    { "type": "richtext", "id": "intro", "label": "Einleitung", "default": "<p>Every morning, thousands of Australian women look in the mirror hoping to see the face they remember, and instead notice more lines, uneven tone and skin that looks tired. A colour-changing foundation from Korea, loved by over 50,000 women, is quietly changing that. It's made to even out, soften and brighten the look of mature skin, and some are choosing it over their entire makeup routine.</p>" },
+    { "type": "header", "content": "Autor" },
+    { "type": "image_picker", "id": "author_avatar", "label": "Foto" },
+    { "type": "text", "id": "author_name", "label": "Name", "default": "Sarah Mitchell" },
+    { "type": "text", "id": "author_role", "label": "Rolle", "default": "Beauty Editor" },
+    { "type": "text", "id": "verified_label", "label": "Verifiziert-Label", "default": "Verified" },
+    { "type": "checkbox", "id": "show_stars", "label": "Sterne anzeigen", "default": true },
+    { "type": "header", "content": "Layout" },
+    { "type": "range", "id": "padding_top", "label": "Abstand oben", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 28 },
+    { "type": "range", "id": "padding_bottom", "label": "Abstand unten", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 16 }
+  ],
+  "presets": [{ "name": "Advertorial Einstieg" }]
+}
+{% endschema %}

@@ -16,7 +16,8 @@
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg>
       </button>
       <div class="y-slider__track">
-        {%- for block in section.blocks -%}
+        {%- assign reviews = section.blocks | where: 'type', 'review' -%}
+        {%- for block in reviews -%}
           <article class="y-review" {{ block.shopify_attributes }}>
             <div class="y-review__media">
               <div>
@@ -55,6 +56,18 @@
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
       </button>
     </div>
+
+    {%- assign stats = section.blocks | where: 'type', 'stat' -%}
+    {%- if stats.size > 0 -%}
+      <div class="y-stats" style="--y-cols: {{ stats.size | at_most: 4 }};">
+        {%- for block in stats -%}
+          <div class="y-stat" {{ block.shopify_attributes }}>
+            <strong>{{ block.settings.value }}</strong>
+            <span>{{ block.settings.text }}</span>
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
   </div>
 </div>
 
@@ -75,6 +88,15 @@
     { "type": "range", "id": "padding_bottom", "label": "Abstand unten", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 }
   ],
   "blocks": [
+    {
+      "type": "stat",
+      "name": "Statistik",
+      "limit": 4,
+      "settings": [
+        { "type": "text", "id": "value", "label": "Wert", "default": "94%" },
+        { "type": "text", "id": "text", "label": "Text", "default": "said their skin instantly looked more even*" }
+      ]
+    },
     {
       "type": "review",
       "name": "Bewertung",

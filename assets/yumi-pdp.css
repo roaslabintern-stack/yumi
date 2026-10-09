@@ -275,10 +275,10 @@ details[open] > summary .y-plus::after { transform: scaleY(0); }
 .y-banner__box { background: #fff; border-radius: 12px; padding: 18px; display: flex; flex-direction: column; gap: 14px; margin-top: 6px; }
 .y-banner__box-icon img { height: 28px; width: auto; }
 .y-banner__item { display: flex; gap: 12px; align-items: flex-start; }
-.y-banner__item-icon { flex: 0 0 auto; width: 32px; height: 32px; border-radius: 50%; background: var(--y-accent-soft); display: flex; align-items: center; justify-content: center; }
-.y-banner__item-icon .y-icon { width: 16px; height: 16px; }
-.y-banner__item strong { display: block; font-size: 1.35rem; }
-.y-banner__item span { display: block; font-size: 1.2rem; color: var(--y-muted); line-height: 1.5; }
+.y-banner__item .y-banner__item-icon { flex: 0 0 auto; width: 32px; height: 32px; border-radius: 50%; background: var(--y-accent-soft); display: flex; align-items: center; justify-content: center; }
+.y-banner__item .y-banner__item-icon .y-icon { width: 16px; height: 16px; }
+.y-banner__item div > strong { display: block; font-size: 1.35rem; }
+.y-banner__item div > span { display: block; font-size: 1.2rem; color: var(--y-muted); line-height: 1.5; }
 .y-banner__media { min-height: 320px; position: relative; }
 .y-banner__media img, .y-banner__media svg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 
