@@ -308,7 +308,8 @@ body:has(.y-sticky.is-visible) { padding-bottom: 68px; }
   .y-hero__img--desktop { display: none; }
   .y-hero__img--mobile { display: block; }
 }
-.y-hero__shade { position: absolute; inset: 0; background: linear-gradient(to top, rgba(29, 26, 28, var(--hero-shade, .7)) 0%, rgba(29, 26, 28, calc(var(--hero-shade, .7) * .55)) 38%, rgba(29, 26, 28, 0) 72%); }
+/* explicit display: Dawn hides empty divs via div:empty */
+.y-hero .y-hero__shade { display: block; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to top, rgba(29, 26, 28, var(--hero-shade, .7)) 0%, rgba(29, 26, 28, calc(var(--hero-shade, .7) * .55)) 38%, rgba(29, 26, 28, 0) 72%); }
 .y-hero__inner { position: relative; z-index: 1; width: 100%; display: flex; align-items: flex-end; padding-top: 48px; padding-bottom: 36px; }
 .y-hero__content { max-width: 500px; display: flex; flex-direction: column; gap: 14px; }
 .y-hero--center .y-hero__inner { justify-content: center; text-align: center; }

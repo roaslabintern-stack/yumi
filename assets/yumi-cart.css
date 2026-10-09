@@ -16,7 +16,7 @@ cart-drawer.yc {
 }
 cart-drawer.yc.active { visibility: visible; }
 cart-drawer.yc #CartDrawer { position: relative; display: flex; justify-content: flex-end; width: 100%; height: 100%; }
-cart-drawer.yc #CartDrawer .cart-drawer__overlay { position: fixed; inset: 0; cursor: pointer; }
+cart-drawer.yc #CartDrawer .cart-drawer__overlay { display: block; position: fixed; inset: 0; cursor: pointer; }
 cart-drawer.yc #CartDrawer .drawer__inner.yc-panel {
   position: relative;
   z-index: 1;
