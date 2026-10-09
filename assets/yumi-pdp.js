@@ -84,7 +84,7 @@
         });
       }
 
-      if (sticky && mainAtc && 'IntersectionObserver' in window) {
+      if (sticky && mainAtc) {
         var stickyBtn = sticky.querySelector('[data-y-sticky-btn]');
         if (stickyBtn) {
           stickyBtn.addEventListener('click', function () {
@@ -92,12 +92,19 @@
             if (btn) btn.click();
           });
         }
-        new IntersectionObserver(function (entries) {
-          entries.forEach(function (entry) {
-            var past = !entry.isIntersecting && entry.boundingClientRect.top < 0;
-            sticky.classList.toggle('is-visible', past);
-          });
-        }).observe(mainAtc);
+        var queued = false;
+        var updateSticky = function () {
+          queued = false;
+          sticky.classList.toggle('is-visible', mainAtc.getBoundingClientRect().bottom < 0);
+        };
+        var queueSticky = function () {
+          if (queued) return;
+          queued = true;
+          requestAnimationFrame(updateSticky);
+        };
+        window.addEventListener('scroll', queueSticky, { passive: true });
+        window.addEventListener('resize', queueSticky);
+        updateSticky();
       }
     });
   }

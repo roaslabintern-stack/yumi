@@ -1,0 +1,124 @@
+{%- liquid
+  assign show_countdown = section.settings.show_countdown
+  assign labels = section.settings.labels | split: ','
+-%}
+<style>
+  #shopify-section-{{ section.id }} .yumi-ann {
+    background: {{ section.settings.background | default: section.settings.background_color }};
+    color: {{ section.settings.text_color }};
+    --ann-box-bg: {{ section.settings.box_color }};
+    --ann-box-text: {{ section.settings.box_text_color }};
+  }
+</style>
+
+<div class="yumi-ann" role="region" aria-label="Ankündigung">
+  <div class="yumi-ann__inner{% if section.settings.hide_countdown_mobile %} yumi-ann__inner--hide-mobile{% endif %}">
+    {%- if section.settings.text != blank -%}
+      {%- if section.settings.link != blank -%}
+        <a class="yumi-ann__text" href="{{ section.settings.link }}">{{ section.settings.text }}</a>
+      {%- else -%}
+        <p class="yumi-ann__text">{{ section.settings.text }}</p>
+      {%- endif -%}
+    {%- endif -%}
+
+    {%- if show_countdown -%}
+      <div
+        class="yumi-ann__timer"
+        data-yumi-ann-timer
+        data-mode="{{ section.settings.countdown_mode }}"
+        data-end="{{ section.settings.end_date | escape }}"
+        data-hide-expired="{{ section.settings.hide_when_expired }}"
+        role="timer"
+      >
+        {%- for i in (0..3) -%}
+          {%- unless forloop.first -%}<span class="yumi-ann__colon" aria-hidden="true">:</span>{%- endunless -%}
+          <span class="yumi-ann__unit">
+            <span class="yumi-ann__box" data-unit="{{ i }}">00</span>
+            <span class="yumi-ann__label">{{ labels[i] | strip }}</span>
+          </span>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+<style>
+  .yumi-ann { font-family: var(--font-body-family); }
+  .yumi-ann__inner { max-width: 1400px; margin: 0 auto; padding: 7px 16px; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 6px 18px; min-height: 42px; }
+  .yumi-ann__text { margin: 0; font-size: 1.3rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; text-align: center; color: inherit; text-decoration: none; line-height: 1.4; text-wrap: balance; }
+  .yumi-ann__text strong { font-weight: 800; }
+  .yumi-ann__timer { display: flex; align-items: flex-start; gap: 4px; }
+  .yumi-ann__unit { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+  .yumi-ann__box { min-width: 26px; padding: 2px 4px; border-radius: 4px; background: var(--ann-box-bg); color: var(--ann-box-text); font-size: 1.3rem; font-weight: 800; line-height: 1.35; text-align: center; font-variant-numeric: tabular-nums; }
+  .yumi-ann__label { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.85; line-height: 1; }
+  .yumi-ann__colon { font-weight: 800; font-size: 1.3rem; line-height: 1.6; }
+  @media screen and (max-width: 749px) {
+    .yumi-ann__inner { padding: 6px 12px; gap: 4px 10px; min-height: 36px; }
+    .yumi-ann__text { font-size: 1.1rem; letter-spacing: 0.05em; }
+    .yumi-ann__box { min-width: 22px; font-size: 1.1rem; }
+    .yumi-ann__label { font-size: 0.7rem; }
+    .yumi-ann__colon { font-size: 1.1rem; }
+    .yumi-ann__inner--hide-mobile .yumi-ann__timer { display: none; }
+  }
+</style>
+
+<script>
+  (function () {
+    var timers = document.querySelectorAll('[data-yumi-ann-timer]:not([data-ready])');
+    timers.forEach(function (el) {
+      el.setAttribute('data-ready', 'true');
+      var boxes = el.querySelectorAll('[data-unit]');
+      function endTime() {
+        var now = new Date();
+        if (el.dataset.mode === 'date' && el.dataset.end) {
+          var parsed = new Date(el.dataset.end.replace(' ', 'T'));
+          if (!isNaN(parsed)) return parsed;
+        }
+        var end = new Date(now);
+        end.setHours(24, 0, 0, 0);
+        return end;
+      }
+      var end = endTime();
+      function tick() {
+        var diff = Math.max(0, end - new Date());
+        if (diff === 0 && el.dataset.mode !== 'date') { end = endTime(); diff = end - new Date(); }
+        if (diff === 0 && el.dataset.hideExpired === 'true') { el.hidden = true; return; }
+        var s = Math.floor(diff / 1000);
+        var parts = [Math.floor(s / 86400), Math.floor((s % 86400) / 3600), Math.floor((s % 3600) / 60), s % 60];
+        parts.forEach(function (v, i) { if (boxes[i]) boxes[i].textContent = String(v).padStart(2, '0'); });
+      }
+      tick();
+      setInterval(tick, 1000);
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "YUMI Ankündigungsleiste",
+  "tag": "section",
+  "class": "yumi-ann-section",
+  "enabled_on": { "groups": ["header"] },
+  "settings": [
+    { "type": "inline_richtext", "id": "text", "label": "Text", "default": "<strong>Herbst-Sale</strong> | 60% Rabatt + Gratis-Geschenk 💗", "info": "Fett formatierter Text wird hervorgehoben." },
+    { "type": "url", "id": "link", "label": "Link" },
+    { "type": "header", "content": "Countdown" },
+    { "type": "checkbox", "id": "show_countdown", "label": "Countdown anzeigen", "default": true },
+    { "type": "select", "id": "countdown_mode", "label": "Countdown läuft bis", "default": "daily", "options": [
+      { "value": "daily", "label": "Jeden Tag bis Mitternacht" },
+      { "value": "date", "label": "Festes Datum" }
+    ] },
+    { "type": "text", "id": "end_date", "label": "Enddatum", "default": "2026-10-31 23:59", "info": "Format: JJJJ-MM-TT HH:MM. Nur bei „Festes Datum“." },
+    { "type": "checkbox", "id": "hide_when_expired", "label": "Countdown nach Ablauf ausblenden", "default": true },
+    { "type": "text", "id": "labels", "label": "Beschriftungen", "default": "Tage,Std,Min,Sek", "info": "Mit Komma getrennt." },
+    { "type": "checkbox", "id": "hide_countdown_mobile", "label": "Countdown mobil ausblenden", "default": false },
+    { "type": "header", "content": "Farben" },
+    { "type": "color", "id": "background_color", "label": "Hintergrund", "default": "#1d1a1c" },
+    { "type": "color_background", "id": "background", "label": "Hintergrund-Verlauf (optional)", "default": "linear-gradient(90deg, #4a4446 0%, #1d1a1c 100%)" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#ffffff" },
+    { "type": "color", "id": "box_color", "label": "Countdown-Box", "default": "#f3eef1" },
+    { "type": "color", "id": "box_text_color", "label": "Countdown-Zahl", "default": "#1d1a1c" }
+  ],
+  "presets": [{ "name": "YUMI Ankündigungsleiste" }]
+}
+{% endschema %}

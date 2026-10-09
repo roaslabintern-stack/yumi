@@ -1,0 +1,53 @@
+{
+  "name": "t:sections.header.name",
+  "type": "header",
+  "sections": {
+    "yumi_announcement": {
+      "type": "yumi-announcement",
+      "settings": {}
+    },
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "disabled": true,
+      "blocks": {
+        "announcement-bar-0": {
+          "type": "announcement",
+          "settings": {
+            "text": "Kostenloser Versand per DHL",
+            "text_alignment": "center",
+            "color_scheme": "accent-1",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "announcement-bar-0"
+      ],
+      "settings": {}
+    },
+    "header": {
+      "type": "header",
+      "settings": {
+        "sticky_header_type": "on-scroll-up",
+        "show_line_separator": true,
+        "color_scheme": "background-1",
+        "logo_position": "middle-center",
+        "menu": "main-menu",
+        "highlight_active_link": false,
+        "highlighted_link_color_scheme": "accent-2",
+        "mobile_menu_title": "Menü",
+        "secondary_menu": "",
+        "menu_color_scheme": "background-1",
+        "mobile_logo_position": "center",
+        "margin_bottom": 0,
+        "padding_top": 16,
+        "padding_bottom": 16
+      }
+    }
+  },
+  "order": [
+    "yumi_announcement",
+    "announcement-bar",
+    "header"
+  ]
+}

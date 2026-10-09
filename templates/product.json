@@ -55,7 +55,7 @@
           "type": "accordion",
           "settings": {
             "heading": "Was macht sie besonders?",
-            "content": "<p>Unsere Foundation enthält farbverändernde Pigmente, die sich beim Auftragen an deinen individuellen Hautton anpassen – für einen natürlichen Look ohne Farbton-Suche.</p>"
+            "content": "<p>Unsere Foundation enthält farbverändernde Pigmente, die sich beim Auftragen an deinen individuellen Hautton anpassen – für einen natürlichen Look ohne Farbton-Suche.</p>"
           }
         },
         "acc_2": {
@@ -69,7 +69,7 @@
           "type": "accordion",
           "settings": {
             "heading": "Wie wende ich sie an?",
-            "content": "<p>Eine kleine Menge auf Stirn, Wangen und Kinn geben und sanft verblenden – mit den Fingern, einem Pinsel oder einem Schwämmchen.</p>"
+            "content": "<p>Eine kleine Menge auf Stirn, Wangen und Kinn geben und sanft verblenden – mit den Fingern, einem Pinsel oder einem Schwämmchen.</p>"
           }
         },
         "acc_4": {
@@ -192,15 +192,15 @@
           "settings": {
             "label": "02 · Beim Verblenden",
             "title": "Dein exakter Farbton entsteht",
-            "text": "<p>Während du verblendest, gleicht die Formel Rötungen und Altersflecken aus – für einen ebenmäßigen Teint.</p>"
+            "text": "<p>Während du verblendest, gleicht die Formel Rötungen und Altersflecken aus – für einen ebenmäßigen Teint.</p>"
           }
         },
         "step_3": {
           "type": "step",
           "settings": {
             "label": "03 · Den ganzen Tag",
-            "title": "Makelloses Finish – den ganzen Tag",
-            "text": "<p>Leicht, atmungsaktiv und langanhaltend – ohne sich in Fältchen abzusetzen. Mit LSF 15.</p>"
+            "title": "Makelloses Finish – den ganzen Tag",
+            "text": "<p>Leicht, atmungsaktiv und langanhaltend – ohne sich in Fältchen abzusetzen. Mit LSF 15.</p>"
           }
         }
       },
@@ -305,14 +305,14 @@
           "type": "question",
           "settings": {
             "question": "Wie lange hält sie?",
-            "answer": "<p>Bis zu 16 Stunden – ohne Nachpudern.</p>"
+            "answer": "<p>Bis zu 16 Stunden – ohne Nachpudern.</p>"
           }
         },
         "faq_3": {
           "type": "question",
           "settings": {
             "question": "Wie stark ist die Deckkraft?",
-            "answer": "<p>Leicht bis mittel und schichtbar – für ein natürliches Ergebnis.</p>"
+            "answer": "<p>Leicht bis mittel und schichtbar – für ein natürliches Ergebnis.</p>"
           }
         },
         "faq_4": {

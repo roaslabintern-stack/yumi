@@ -1,0 +1,376 @@
+{%- comment -%}
+  YUMI cart drawer. Rendered statically from layout/theme.liquid via {% section 'cart-drawer' %}
+  so that the Section Rendering API id stays "cart-drawer" (used by cart-drawer.js / product-form.js).
+{%- endcomment -%}
+<script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'yumi-cart.js' | asset_url }}" defer="defer"></script>
+{{ 'yumi-cart.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign s = section.settings
+  assign gift_label = s.gift_label
+  assign upsell_blocks = section.blocks | where: 'type', 'upsell'
+  assign gift_blocks = section.blocks | where: 'type', 'gift'
+
+  assign paid_count = 0
+  for item in cart.items
+    unless item.properties['_yumi_gift']
+      assign paid_count = paid_count | plus: item.quantity
+    endunless
+  endfor
+
+  assign savings = 0
+  for item in cart.items
+    assign unit_ref = item.original_price
+    if item.variant.compare_at_price > unit_ref
+      assign unit_ref = item.variant.compare_at_price
+    endif
+    assign line_ref = unit_ref | times: item.quantity
+    assign line_diff = line_ref | minus: item.final_line_price
+    if line_diff > 0
+      assign savings = savings | plus: line_diff
+    endif
+  endfor
+  for discount in cart.cart_level_discount_applications
+    assign savings = savings | plus: discount.total_allocated_amount
+  endfor
+
+  assign threshold_cents = s.shipping_threshold | times: 100
+  assign shipping_remaining = threshold_cents | minus: cart.total_price
+  if threshold_cents > 0
+    assign shipping_percent = cart.total_price | times: 100 | divided_by: threshold_cents
+  else
+    assign shipping_percent = 100
+  endif
+  if shipping_percent > 100
+    assign shipping_percent = 100
+  endif
+
+  assign cart_product_ids = cart.items | map: 'product_id'
+-%}
+
+<style>
+  cart-drawer.yc {
+    --yc-accent: {{ s.accent_color }};
+    --yc-accent-dark: {{ s.accent_dark_color }};
+    --yc-btn: {{ s.button_color }};
+    --yc-btn-text: {{ s.button_text_color }};
+    --yc-reserve-bg: {{ s.reserve_bg }};
+    --yc-reserve-text: {{ s.reserve_text_color }};
+  }
+</style>
+
+<cart-drawer
+  class="drawer yc{% if cart == empty %} is-empty{% endif %}"
+  data-yc-gifts='[
+    {%- for block in gift_blocks -%}
+      {%- if block.settings.product != blank and block.settings.product.selected_or_first_available_variant.available -%}
+        {"id":{{ block.settings.product.selected_or_first_available_variant.id }},"min":{{ block.settings.minimum | times: 100 }}}{% unless forloop.last %},{% endunless %}
+      {%- endif -%}
+    {%- endfor -%}
+  ]'
+>
+  <div id="CartDrawer" class="cart-drawer">
+    <div id="CartDrawer-Overlay" class="cart-drawer__overlay"></div>
+    <div class="drawer__inner yc-panel" role="dialog" aria-modal="true" aria-label="{{ s.title | escape }}" tabindex="-1">
+      {%- capture drawer_head -%}
+        <div class="yc-head">
+          <h2 class="yc-head__title">
+            {{ s.title }}
+            {%- if cart != empty -%}
+              <span class="yc-head__count">{{ s.count_text | replace: '[count]', cart.item_count }}</span>
+            {%- endif -%}
+          </h2>
+          <button class="drawer__close yc-close" type="button" onclick="this.closest('cart-drawer').close()" aria-label="{{ 'accessibility.close' | t }}">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+          </button>
+        </div>
+      {%- endcapture -%}
+
+      {%- if cart == empty -%}
+        <div class="drawer__inner-empty yc-empty-wrap">
+          {{ drawer_head }}
+          <div class="yc-empty">
+            <svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 7h12l-1 13H7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+            <p class="yc-empty__text">{{ s.empty_text }}</p>
+            <a href="{{ s.empty_link | default: routes.all_products_collection_url }}" class="yc-btn">{{ s.empty_button }}</a>
+          </div>
+        </div>
+      {%- else -%}
+        {{ drawer_head }}
+      {%- endif -%}
+
+      <div class="yc-body">
+        {%- if cart != empty -%}
+          {%- if s.show_reserve or s.show_shipping -%}
+            <div class="yc-top">
+              {%- if s.show_reserve -%}
+                {%- capture reserve_timer -%}<span data-yc-time>{{ s.reserve_minutes }}:00</span>{%- endcapture -%}
+                <div class="yc-reserve" data-yc-reserve data-minutes="{{ s.reserve_minutes }}">
+                  <span class="yc-reserve__dot" aria-hidden="true"></span>
+                  <span>{{ s.reserve_text | replace: '[timer]', reserve_timer }}</span>
+                </div>
+              {%- endif -%}
+              {%- if s.show_shipping and threshold_cents > 0 -%}
+                <div class="yc-ship">
+                  <p class="yc-ship__text">
+                    {%- if shipping_remaining > 0 -%}
+                      {%- assign remaining_money = shipping_remaining | money -%}
+                      {{ s.shipping_text | replace: '[amount]', remaining_money }}
+                    {%- else -%}
+                      {{ s.shipping_success_text }}
+                    {%- endif -%}
+                  </p>
+                  <div class="yc-ship__bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ shipping_percent }}">
+                    <span class="yc-ship__fill" style="width: {{ shipping_percent }}%"></span>
+                    <span class="yc-ship__icon{% if shipping_remaining <= 0 %} is-done{% endif %}" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h11v10H3zM14 9h4l3 3v4h-7"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/></svg>
+                    </span>
+                  </div>
+                </div>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        {%- endif -%}
+
+        <cart-drawer-items{% if cart == empty %} class="is-empty"{% endif %}>
+          <form action="{{ routes.cart_url }}" id="CartDrawer-Form" class="cart__contents cart-drawer__form" method="post">
+            <div id="CartDrawer-CartItems" class="drawer__contents js-contents">
+              {%- if cart != empty -%}
+                <ul class="yc-items" role="list">
+                  {%- for item in cart.items -%}
+                    {%- liquid
+                      assign is_gift = false
+                      if item.properties['_yumi_gift']
+                        assign is_gift = true
+                      endif
+                      assign compare_line = 0
+                      if item.variant.compare_at_price > item.final_price
+                        assign compare_line = item.variant.compare_at_price | times: item.quantity
+                      elsif item.original_line_price > item.final_line_price
+                        assign compare_line = item.original_line_price
+                      endif
+                    -%}
+                    <li id="CartDrawer-Item-{{ item.index | plus: 1 }}" class="cart-item yc-item{% if is_gift %} yc-item--gift{% endif %}">
+                      <a href="{{ item.url }}" class="yc-item__media" tabindex="-1" aria-hidden="true">
+                        {%- if item.image -%}
+                          <img src="{{ item.image | image_url: width: 200 }}" alt="" width="72" height="72" loading="lazy">
+                        {%- endif -%}
+                      </a>
+                      <div class="yc-item__info">
+                        <a href="{{ item.url }}" class="cart-item__name yc-item__title">{{ item.product.title | escape }}</a>
+                        {%- unless item.product.has_only_default_variant -%}
+                          <p class="yc-item__variant">{{ item.variant.title }}</p>
+                        {%- endunless -%}
+                        {%- if item.selling_plan_allocation -%}
+                          <p class="yc-item__variant">{{ item.selling_plan_allocation.selling_plan.name }}</p>
+                        {%- endif -%}
+                        {%- for property in item.properties -%}
+                          {%- assign property_first_char = property.first | slice: 0 -%}
+                          {%- if property.last != blank and property_first_char != '_' -%}
+                            <p class="yc-item__variant">{{ property.first }}: {{ property.last }}</p>
+                          {%- endif -%}
+                        {%- endfor -%}
+
+                        <div class="yc-item__price">
+                          {%- if item.final_line_price == 0 -%}
+                            <span class="yc-item__free">{{ s.free_label }}</span>
+                          {%- else -%}
+                            <span class="yc-item__now">{{ item.final_line_price | money }}</span>
+                          {%- endif -%}
+                          {%- if compare_line > 0 -%}<s class="yc-item__was">{{ compare_line | money }}</s>{%- endif -%}
+                        </div>
+
+                        {%- for discount in item.discounts -%}
+                          <p class="yc-item__discount">{{ discount.title }}</p>
+                        {%- endfor -%}
+
+                        {%- if is_gift -%}
+                          <span class="yc-item__pill">🎁 {{ gift_label }}</span>
+                        {%- else -%}
+                          <div class="yc-item__actions">
+                            <quantity-input class="quantity cart-quantity yc-qty">
+                              <button class="quantity__button" name="minus" type="button" aria-label="{{ 'products.product.quantity.decrease' | t: product: item.product.title | escape }}">
+                                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 12h12"/></svg>
+                              </button>
+                              <input
+                                class="quantity__input"
+                                type="number"
+                                data-quantity-variant-id="{{ item.variant.id }}"
+                                name="updates[]"
+                                value="{{ item.quantity }}"
+                                data-cart-quantity="{{ cart | item_count_for_variant: item.variant.id }}"
+                                min="{{ item.variant.quantity_rule.min }}"
+                                {% if item.variant.quantity_rule.max != null %}max="{{ item.variant.quantity_rule.max }}"{% endif %}
+                                step="{{ item.variant.quantity_rule.increment }}"
+                                aria-label="{{ 'products.product.quantity.input_label' | t: product: item.product.title | escape }}"
+                                id="Drawer-quantity-{{ item.index | plus: 1 }}"
+                                data-index="{{ item.index | plus: 1 }}"
+                              >
+                              <button class="quantity__button" name="plus" type="button" aria-label="{{ 'products.product.quantity.increase' | t: product: item.product.title | escape }}">
+                                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 12h12M12 6v12"/></svg>
+                              </button>
+                            </quantity-input>
+                            <cart-remove-button id="CartDrawer-Remove-{{ item.index | plus: 1 }}" data-index="{{ item.index | plus: 1 }}">
+                              <a href="{{ item.url_to_remove }}" class="yc-remove">{{ s.remove_label }}</a>
+                            </cart-remove-button>
+                          </div>
+                        {%- endif -%}
+                        <div id="CartDrawer-LineItemError-{{ item.index | plus: 1 }}" class="cart-item__error yc-item__error" role="alert">
+                          <small class="cart-item__error-text"></small>
+                        </div>
+                      </div>
+                      <div class="loading-overlay hidden yc-item__loading">
+                        <div class="loading-overlay__spinner">
+                          <svg aria-hidden="true" focusable="false" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg"><circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle></svg>
+                        </div>
+                      </div>
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              {%- endif -%}
+              <p id="CartDrawer-LiveRegionText" class="visually-hidden" role="status"></p>
+              <p id="CartDrawer-LineItemStatus" class="visually-hidden" aria-hidden="true" role="status">{{ 'accessibility.loading' | t }}</p>
+            </div>
+            <div id="CartDrawer-CartErrors" class="yc-errors" role="alert"></div>
+          </form>
+        </cart-drawer-items>
+
+        {%- if s.show_upsells and upsell_blocks.size > 0 -%}
+          {%- capture upsell_cards -%}
+            {%- for block in upsell_blocks -%}
+              {%- assign up = block.settings.product -%}
+              {%- if up == blank -%}
+                {%- if request.design_mode -%}
+                  <div class="yc-upsell" {{ block.shopify_attributes }}>
+                    <div class="yc-upsell__media">{{ 'product-1' | placeholder_svg_tag: 'yc-ph' }}</div>
+                    <div class="yc-upsell__info"><p class="yc-upsell__title">Produkt auswählen</p><p class="yc-upsell__price">0,00 €</p></div>
+                    <button type="button" class="yc-upsell__add" disabled>{{ s.upsell_button }}</button>
+                  </div>
+                {%- endif -%}
+              {%- elsif cart_product_ids contains up.id or up.available == false -%}
+              {%- else -%}
+                {%- assign up_variant = up.selected_or_first_available_variant -%}
+                <div class="yc-upsell" {{ block.shopify_attributes }}>
+                  <a class="yc-upsell__media" href="{{ up.url }}" tabindex="-1" aria-hidden="true">
+                    {%- if up.featured_media -%}
+                      <img src="{{ up.featured_media | image_url: width: 160 }}" alt="" width="56" height="56" loading="lazy">
+                    {%- else -%}
+                      {{ 'product-1' | placeholder_svg_tag: 'yc-ph' }}
+                    {%- endif -%}
+                  </a>
+                  <div class="yc-upsell__info">
+                    <a class="yc-upsell__title" href="{{ up.url }}">{{ block.settings.title | default: up.title | escape }}</a>
+                    <p class="yc-upsell__price">
+                      <span>{{ up_variant.price | money }}</span>
+                      {%- if up_variant.compare_at_price > up_variant.price -%}<s>{{ up_variant.compare_at_price | money }}</s>{%- endif -%}
+                    </p>
+                  </div>
+                  <button type="button" class="yc-upsell__add" data-yc-add="{{ up_variant.id }}">{{ s.upsell_button }}</button>
+                </div>
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endcapture -%}
+          {%- if upsell_cards != blank -%}
+            <div class="yc-upsells">
+              {%- if s.upsell_heading != blank -%}<p class="yc-upsells__heading">{{ s.upsell_heading }}</p>{%- endif -%}
+              <div class="yc-upsells__list">{{ upsell_cards }}</div>
+            </div>
+          {%- endif -%}
+        {%- endif -%}
+      </div>
+
+      {%- if cart != empty -%}
+        <div class="yc-foot">
+          {%- if s.show_savings and savings > 0 -%}
+            {%- assign savings_money = savings | money -%}
+            <div class="yc-savings">{{ s.savings_text | replace: '[amount]', savings_money }}</div>
+          {%- endif -%}
+          <noscript>
+            <button type="submit" class="yc-btn yc-btn--ghost" form="CartDrawer-Form">{{ 'sections.cart.update' | t }}</button>
+          </noscript>
+          <button type="submit" id="CartDrawer-Checkout" class="yc-checkout" name="checkout" form="CartDrawer-Form">
+            <span>{{ s.checkout_label }}</span>
+            {%- if s.checkout_show_price -%}<span aria-hidden="true">·</span><span>{{ cart.total_price | money }}</span>{%- endif -%}
+          </button>
+          {%- if s.show_payment_icons -%}
+            <ul class="yc-payments" role="list">
+              {%- for type in shop.enabled_payment_types -%}
+                <li>{{ type | payment_type_svg_tag }}</li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+          {%- if s.footer_text != blank -%}<p class="yc-foot__note">{{ s.footer_text }}</p>{%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</cart-drawer>
+
+{% schema %}
+{
+  "name": "YUMI Warenkorb",
+  "class": "yumi-cart-section",
+  "settings": [
+    { "type": "paragraph", "content": "Der Warenkorb öffnet sich automatisch, wenn du diese Section im Editor auswählst." },
+    { "type": "text", "id": "title", "label": "Überschrift", "default": "Warenkorb" },
+    { "type": "text", "id": "count_text", "label": "Artikelanzahl", "default": "([count] Artikel)", "info": "[count] wird durch die Anzahl ersetzt." },
+    { "type": "text", "id": "remove_label", "label": "Text „Entfernen“", "default": "Entfernen" },
+    { "type": "header", "content": "Reservierungs-Timer" },
+    { "type": "checkbox", "id": "show_reserve", "label": "Anzeigen", "default": true },
+    { "type": "text", "id": "reserve_text", "label": "Text", "default": "Deine Bestellung ist für [timer] reserviert", "info": "[timer] wird durch den Countdown ersetzt." },
+    { "type": "range", "id": "reserve_minutes", "label": "Minuten", "min": 1, "max": 60, "step": 1, "default": 10 },
+    { "type": "color", "id": "reserve_bg", "label": "Hintergrund", "default": "#e7f7ed" },
+    { "type": "color", "id": "reserve_text_color", "label": "Textfarbe", "default": "#1f7a3d" },
+    { "type": "header", "content": "Gratis-Versand-Balken" },
+    { "type": "checkbox", "id": "show_shipping", "label": "Anzeigen", "default": true },
+    { "type": "number", "id": "shipping_threshold", "label": "Gratis Versand ab (€)", "default": 39 },
+    { "type": "text", "id": "shipping_text", "label": "Text (nicht erreicht)", "default": "Noch [amount] bis zum kostenlosen Versand", "info": "[amount] wird durch den Restbetrag ersetzt." },
+    { "type": "text", "id": "shipping_success_text", "label": "Text (erreicht)", "default": "🎉 Du hast kostenlosen Versand freigeschaltet" },
+    { "type": "header", "content": "Gratis-Geschenke" },
+    { "type": "paragraph", "content": "Geschenke fügst du als Block „Gratis-Geschenk“ hinzu. Sie werden automatisch in den Warenkorb gelegt, sobald der Mindestbestellwert erreicht ist. Setze den Preis des Geschenk-Produkts auf 0 € und den Vergleichspreis auf den Originalwert." },
+    { "type": "text", "id": "free_label", "label": "Preis-Text bei 0 €", "default": "Gratis" },
+    { "type": "text", "id": "gift_label", "label": "Geschenk-Label", "default": "Geschenk · automatisch hinzugefügt" },
+    { "type": "header", "content": "Upsells" },
+    { "type": "checkbox", "id": "show_upsells", "label": "Anzeigen", "default": true },
+    { "type": "text", "id": "upsell_heading", "label": "Überschrift", "default": "Vervollständige deinen Look" },
+    { "type": "text", "id": "upsell_button", "label": "Button-Text", "default": "Hinzufügen" },
+    { "type": "header", "content": "Unterer Bereich" },
+    { "type": "checkbox", "id": "show_savings", "label": "Ersparnis anzeigen", "default": true },
+    { "type": "text", "id": "savings_text", "label": "Ersparnis-Text", "default": "Du sparst [amount]", "info": "[amount] wird durch die Ersparnis ersetzt." },
+    { "type": "text", "id": "checkout_label", "label": "Checkout-Button", "default": "Zur Kasse" },
+    { "type": "checkbox", "id": "checkout_show_price", "label": "Gesamtpreis im Button", "default": true },
+    { "type": "checkbox", "id": "show_payment_icons", "label": "Zahlungs-Icons anzeigen", "default": true },
+    { "type": "text", "id": "footer_text", "label": "Hinweis unter dem Button", "default": "Kostenloser Versand + 30 Tage Geld-zurück-Garantie" },
+    { "type": "header", "content": "Leerer Warenkorb" },
+    { "type": "text", "id": "empty_text", "label": "Text", "default": "Dein Warenkorb ist leer" },
+    { "type": "text", "id": "empty_button", "label": "Button-Text", "default": "Weiter einkaufen" },
+    { "type": "url", "id": "empty_link", "label": "Button-Link" },
+    { "type": "header", "content": "Farben" },
+    { "type": "color", "id": "accent_color", "label": "Akzent", "default": "#e0609b" },
+    { "type": "color", "id": "accent_dark_color", "label": "Akzent dunkel", "default": "#9c5a85" },
+    { "type": "color", "id": "button_color", "label": "Checkout-Button", "default": "#1d1a1c" },
+    { "type": "color", "id": "button_text_color", "label": "Checkout-Button Text", "default": "#ffffff" }
+  ],
+  "blocks": [
+    {
+      "type": "upsell",
+      "name": "Upsell-Produkt",
+      "limit": 6,
+      "settings": [
+        { "type": "product", "id": "product", "label": "Produkt" },
+        { "type": "text", "id": "title", "label": "Eigener Titel (optional)" }
+      ]
+    },
+    {
+      "type": "gift",
+      "name": "Gratis-Geschenk",
+      "limit": 4,
+      "settings": [
+        { "type": "product", "id": "product", "label": "Geschenk-Produkt", "info": "Preis 0 € setzen. Vergleichspreis wird durchgestrichen angezeigt." },
+        { "type": "number", "id": "minimum", "label": "Ab Bestellwert (€)", "default": 0, "info": "0 = bei jeder Bestellung." }
+      ]
+    }
+  ]
+}
+{% endschema %}

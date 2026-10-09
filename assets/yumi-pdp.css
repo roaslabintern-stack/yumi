@@ -30,7 +30,7 @@
 .y-icon { flex: 0 0 auto; color: var(--y-accent); }
 
 /* Highlight via italic in inline rich text */
-.y-hl-pill em { font-style: normal; background: var(--y-accent); color: #fff; padding: 0.02em 0.32em 0.08em; border-radius: 6px; }
+.y-hl-pill em { font-style: normal; background: var(--y-accent); color: #fff; padding: 0.02em 0.28em 0.08em; border-radius: 6px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
 .y-hl-text em { font-style: normal; color: var(--y-accent); }
 
 /* Placeholders */
@@ -138,14 +138,15 @@
 .y-guarantee__text { font-size: 1.4rem; color: var(--y-muted); line-height: 1.6; margin-top: 4px; }
 .y-accordion { border-top: 1px solid var(--y-border); }
 .y-accordion:last-of-type, .y-accordion + :not(.y-accordion) { border-bottom: 0; }
-.y-accordion summary { list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 22px 2px; font-size: 1.6rem; font-weight: 600; cursor: pointer; }
+.y-accordion summary { list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 18px 2px; font-size: 1.6rem; font-weight: 600; cursor: pointer; line-height: 1.35; }
 .y-accordion summary::-webkit-details-marker { display: none; }
 .y-plus { position: relative; width: 14px; height: 14px; flex: 0 0 auto; color: var(--y-accent); }
 .y-plus::before, .y-plus::after { content: ""; position: absolute; background: currentColor; border-radius: 2px; }
 .y-plus::before { left: 0; right: 0; top: 6px; height: 2px; }
 .y-plus::after { top: 0; bottom: 0; left: 6px; width: 2px; transition: transform .2s ease; }
 details[open] > summary .y-plus::after { transform: scaleY(0); }
-.y-accordion__content { padding: 0 2px 22px; }
+.y-accordion__content { padding: 0 2px 18px; }
+@media (max-width: 749px) { .y-accordion summary { padding: 16px 2px; font-size: 1.5rem; } }
 
 /* Sticky add to cart */
 .y-sticky { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; background: #fff; box-shadow: 0 -6px 24px rgba(0,0,0,.08); transform: translateY(110%); transition: transform .25s ease; }
@@ -239,7 +240,7 @@ details[open] > summary .y-plus::after { transform: scaleY(0); }
 .y-mark svg { width: 12px; height: 12px; stroke: #fff; stroke-width: 3; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 .y-mark--yes { background: var(--y-accent-dark); }
 .y-mark--no { background: #d6d0d3; }
-.y-brand-inline { font-style: italic; font-weight: 900; }
+.y-brand-inline { font-style: italic; font-weight: 900; margin-right: 0.06em; }
 .y-brand-inline img { display: inline-block; height: 1em; width: auto; vertical-align: -0.1em; }
 @media (max-width: 749px) {
   .y-ctable__row { grid-template-columns: minmax(0, 1fr) 80px 80px; }
@@ -278,3 +279,18 @@ details[open] > summary .y-plus::after { transform: scaleY(0); }
 .y-banner__item span { display: block; font-size: 1.2rem; color: var(--y-muted); line-height: 1.5; }
 .y-banner__media { min-height: 320px; position: relative; }
 .y-banner__media img, .y-banner__media svg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+/* Balanced wrapping for short labels (avoids single orphan words) */
+.y-feature span, .y-bullet span, .y-ctable__row > div, .y-stat span, .y-card__title, .y-step__title, .y-banner__item strong, .y-guarantee__title, .y-stock__title, .y-review__name { text-wrap: balance; }
+.y-card__text, .y-review__text, .y-step__text, .y-guarantee__text, .y-banner__item span, .y-subheading { text-wrap: pretty; }
+
+/* Ingredient cards: swipeable row on mobile */
+@media (max-width: 749px) {
+  .y-cards { grid-auto-flow: column; grid-auto-columns: 78%; grid-template-columns: none; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding: 4px 2px 18px; margin-left: -20px; margin-right: -20px; padding-left: 20px; padding-right: 20px; scroll-padding-left: 20px; }
+  .y-cards::-webkit-scrollbar { display: none; }
+  .y-card { scroll-snap-align: start; }
+  .y-stats { gap: 10px; }
+}
+
+/* Keep page end visible above the sticky add-to-cart bar */
+body:has(.y-sticky.is-visible) { padding-bottom: 68px; }

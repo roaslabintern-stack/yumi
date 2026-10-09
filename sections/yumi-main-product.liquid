@@ -37,8 +37,15 @@
           <div class="y-gallery__track">
             {%- if media_count > 0 -%}
               {%- for media in product.media -%}
+                {%- liquid
+                  assign media_alt = media.alt | default: product.title | escape
+                  assign media_loading = 'lazy'
+                  if forloop.first
+                    assign media_loading = 'eager'
+                  endif
+                -%}
                 <div class="y-gallery__slide" data-media-id="{{ media.id }}">
-                  {{- media.preview_image | image_url: width: 1400 | image_tag: loading: 'eager', sizes: '(min-width: 990px) 560px, 100vw', widths: '400, 600, 800, 1000, 1200, 1400', alt: media.alt | escape -}}
+                  {{- media.preview_image | image_url: width: 1400 | image_tag: loading: media_loading, sizes: '(min-width: 990px) 560px, 100vw', widths: '400, 600, 800, 1000, 1200, 1400', alt: media_alt -}}
                 </div>
               {%- endfor -%}
             {%- else -%}
@@ -422,7 +429,7 @@
       "name": "Beschreibung",
       "limit": 1,
       "settings": [
-        { "type": "richtext", "id": "text", "label": "Text", "info": "Leer lassen, um die Produktbeschreibung zu verwenden.", "default": "<p><strong>Mit koreanischer Beauty-Innovation entwickelt – speziell für Haut ab 50.</strong> Sie mildert Fältchen, kaschiert Altersflecken und belebt müde wirkende Haut – mit einem perfekten, sich selbst anpassenden Farbton.</p>" }
+        { "type": "richtext", "id": "text", "label": "Text", "info": "Leer lassen, um die Produktbeschreibung zu verwenden.", "default": "<p><strong>Mit koreanischer Beauty-Innovation entwickelt – speziell für Haut ab 50.</strong> Sie mildert Fältchen, kaschiert Altersflecken und belebt müde wirkende Haut – mit einem perfekten, sich selbst anpassenden Farbton.</p>" }
       ]
     },
     {
@@ -525,11 +532,11 @@
     { "type": "checkbox", "id": "show_thumbnails", "label": "Vorschaubilder anzeigen", "default": true },
     { "type": "checkbox", "id": "hide_thumbnails_mobile", "label": "Vorschaubilder mobil ausblenden (Punkte anzeigen)", "default": true },
     { "type": "range", "id": "thumbnail_limit", "label": "Max. Vorschaubilder", "min": 3, "max": 20, "step": 1, "default": 14 },
-    { "type": "header", "content": "Badges auf dem Bild" },
+    { "type": "header", "content": "Badges auf dem Bild (optional)" },
     { "type": "image_picker", "id": "badge_image", "label": "Rundes Badge-Bild (z. B. Flagge)" },
-    { "type": "text", "id": "badge_caption", "label": "Badge-Beschriftung", "default": "#1 Foundation in Südkorea" },
-    { "type": "text", "id": "badge_big", "label": "Kreis-Badge groß", "default": "50K+" },
-    { "type": "text", "id": "badge_small", "label": "Kreis-Badge klein", "default": "verkauft" },
+    { "type": "text", "id": "badge_caption", "label": "Badge-Beschriftung" },
+    { "type": "text", "id": "badge_big", "label": "Kreis-Badge groß", "info": "Leer lassen zum Ausblenden." },
+    { "type": "text", "id": "badge_small", "label": "Kreis-Badge klein" },
     { "type": "header", "content": "Farben" },
     { "type": "paragraph", "content": "Die Akzentfarben gelten für alle YUMI-Sections auf der Seite." },
     { "type": "color", "id": "accent_color", "label": "Akzentfarbe", "default": "#e0609b" },

@@ -1,0 +1,42 @@
+/* YUMI global theme styling */
+body {
+  letter-spacing: 0;
+  color: #1d1a1c;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, h4, .h0, .h1, .h2, .h3, .h4, .y-heading, .y-title {
+  font-weight: var(--font-heading-weight);
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+  overflow-wrap: break-word;
+  hyphens: manual;
+}
+p, li, .rte, .y-rte, .y-description { text-wrap: pretty; }
+
+/* Header */
+.section-header .header-wrapper { background: #fff; }
+.section-header .header-wrapper--border-bottom { border-bottom: 1px solid #ece6e9; }
+.header__inline-menu .header__menu-item,
+.header__inline-menu .list-menu__item {
+  font-size: 1.3rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #1d1a1c;
+}
+.header__inline-menu .header__menu-item:hover span,
+.header__inline-menu .header__active-menu-item { text-decoration: none; color: var(--yumi-accent, #e0609b); }
+.header__inline-menu .list-menu--inline { gap: 0.4rem 2.2rem; }
+.header__icon { color: #1d1a1c; }
+.header__icon .icon { width: 2.2rem; height: 2.2rem; }
+.cart-count-bubble { background: var(--yumi-accent, #e0609b); color: #fff; }
+@media screen and (max-width: 989px) {
+  .header { padding-top: 1rem; padding-bottom: 1rem; }
+}
+
+/* Buttons */
+.button, .shopify-payment-button__button--unbranded {
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+

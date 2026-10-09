@@ -1,0 +1,68 @@
+{
+  "name": "t:sections.footer.name",
+  "type": "footer",
+  "sections": {
+    "yumi_footer": {
+      "type": "yumi-footer",
+      "blocks": {
+        "brand": {
+          "type": "brand",
+          "settings": {}
+        },
+        "shop": {
+          "type": "menu",
+          "settings": {
+            "heading": "Shop",
+            "menu": "main-menu"
+          }
+        },
+        "help": {
+          "type": "menu",
+          "settings": {
+            "heading": "Hilfe",
+            "menu": "footer"
+          }
+        },
+        "contact": {
+          "type": "text",
+          "settings": {
+            "heading": "Kontakt",
+            "text": "<p>Mo–Fr, 9–17 Uhr<br/>Antwort innerhalb von 24 Stunden</p>"
+          }
+        },
+        "newsletter": {
+          "type": "newsletter",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "brand",
+        "shop",
+        "help",
+        "contact",
+        "newsletter"
+      ],
+      "settings": {}
+    },
+    "footer": {
+      "type": "footer",
+      "disabled": true,
+      "settings": {
+        "color_scheme": "accent-1",
+        "enable_follow_on_shop": false,
+        "show_social": false,
+        "enable_country_selector": false,
+        "enable_language_selector": true,
+        "payment_enable": true,
+        "show_policy": false,
+        "margin_top": 0,
+        "padding_top": 32,
+        "padding_bottom": 20
+      }
+    }
+  },
+  "order": [
+    "yumi_footer",
+    "footer"
+  ]
+}
