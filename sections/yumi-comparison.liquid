@@ -8,14 +8,17 @@
 
 <div class="y-section">
   <div class="y-container">
-    <h2 class="y-heading y-h2 y-center">
-      {{ section.settings.heading }}
+    {%- capture brand_html -%}
       {%- if section.settings.logo != blank -%}
-        <span class="y-brand-inline">{{ section.settings.logo | image_url: width: 300 | image_tag: loading: 'lazy', alt: section.settings.brand_name }}</span>
-      {%- elsif section.settings.brand_name != blank -%}
-        <span class="y-brand-inline">{{ section.settings.brand_name }}</span>
+        {{ section.settings.logo | image_url: width: 300 | image_tag: loading: 'lazy', alt: section.settings.brand_name }}
+      {%- else -%}
+        {{ section.settings.brand_name }}
       {%- endif -%}
-      {{ section.settings.heading_suffix }}
+    {%- endcapture -%}
+    <h2 class="y-heading y-h2 y-center">
+      {{- section.settings.heading | strip -}}
+      {%- if brand_html != blank %} <span class="y-brand-inline">{{ brand_html }}</span>{% endif -%}
+      {{- section.settings.heading_suffix | strip -}}
     </h2>
 
     <div class="y-ctable" role="table">
