@@ -1,0 +1,76 @@
+{{ 'yumi-pdp.css' | asset_url | stylesheet_tag }}
+<style>
+  #shopify-section-{{ section.id }} .y-section { --y-bg: {{ section.settings.background }}; --y-pt: {{ section.settings.padding_top }}px; --y-pb: {{ section.settings.padding_bottom }}px; --y-width: {{ section.settings.max_width }}px; }
+  #shopify-section-{{ section.id }} .y-cards { --y-cols: {{ section.settings.columns }}; }
+</style>
+
+<div class="y-section">
+  <div class="y-container">
+    <div class="y-center">
+      {%- if section.settings.eyebrow != blank -%}<span class="y-eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2 class="y-heading y-h2 y-hl-text">{{ section.settings.heading }}</h2>{%- endif -%}
+      {%- if section.settings.subheading != blank -%}<p class="y-subheading">{{ section.settings.subheading }}</p>{%- endif -%}
+    </div>
+    <div class="y-cards">
+      {%- for block in section.blocks -%}
+        <div class="y-card" {{ block.shopify_attributes }}>
+          <div class="y-card__media">
+            {%- if block.settings.image != blank -%}
+              {{ block.settings.image | image_url: width: 700 | image_tag: loading: 'lazy', alt: block.settings.title, sizes: '(min-width: 750px) 33vw, 100vw', widths: '350, 500, 700' }}
+            {%- else -%}
+              {{ 'image' | placeholder_svg_tag: 'y-ph' }}
+            {%- endif -%}
+          </div>
+          <div class="y-card__body">
+            <p class="y-card__title">{{ block.settings.title }}</p>
+            {%- if block.settings.text != blank -%}<div class="y-card__text">{{ block.settings.text }}</div>{%- endif -%}
+            {%- if block.settings.pill != blank -%}<span class="y-card__pill">{{ block.settings.pill }}</span>{%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "YUMI Karten (Inhaltsstoffe)",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Kleine Überschrift" },
+    { "type": "inline_richtext", "id": "heading", "label": "Überschrift", "default": "Inhaltsstoffe, die einziehen – nicht nur aufliegen" },
+    { "type": "text", "id": "subheading", "label": "Unterüberschrift", "default": "Saubere, hautpflegende Inhaltsstoffe, die deine Haut lieben wird." },
+    { "type": "select", "id": "columns", "label": "Spalten (Desktop)", "default": "3", "options": [
+      { "value": "2", "label": "2" }, { "value": "3", "label": "3" }, { "value": "4", "label": "4" }
+    ] },
+    { "type": "header", "content": "Layout" },
+    { "type": "color", "id": "background", "label": "Hintergrundfarbe", "default": "#ffffff" },
+    { "type": "range", "id": "max_width", "label": "Max. Breite", "min": 600, "max": 1400, "step": 20, "unit": "px", "default": 900 },
+    { "type": "range", "id": "padding_top", "label": "Abstand oben", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 48 },
+    { "type": "range", "id": "padding_bottom", "label": "Abstand unten", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 48 }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Karte",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Bild" },
+        { "type": "text", "id": "title", "label": "Titel", "default": "Glycerin" },
+        { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Spendet Feuchtigkeit für einen frischen, prallen Look.</p>" },
+        { "type": "text", "id": "pill", "label": "Label", "default": "Feuchtigkeit" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "YUMI Karten (Inhaltsstoffe)",
+      "blocks": [
+        { "type": "card", "settings": { "title": "Glycerin", "pill": "Feuchtigkeit" } },
+        { "type": "card", "settings": { "title": "Vitamin E", "text": "<p>Nährt und schützt mit beruhigendem Vitamin E.</p>", "pill": "Schutz" } },
+        { "type": "card", "settings": { "title": "Mica", "text": "<p>Lichtreflektierende Pigmente für einen sanften, gesunden Glow.</p>", "pill": "Glow" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

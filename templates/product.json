@@ -1,0 +1,448 @@
+{
+  "sections": {
+    "main": {
+      "type": "yumi-main-product",
+      "blocks": {
+        "top_bar": {
+          "type": "top_bar",
+          "settings": {}
+        },
+        "social_proof": {
+          "type": "social_proof",
+          "settings": {}
+        },
+        "rating": {
+          "type": "rating",
+          "settings": {}
+        },
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "description": {
+          "type": "description",
+          "settings": {}
+        },
+        "features": {
+          "type": "features",
+          "settings": {}
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {}
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {}
+        },
+        "shipping": {
+          "type": "shipping",
+          "settings": {}
+        },
+        "stock": {
+          "type": "stock",
+          "settings": {}
+        },
+        "guarantee": {
+          "type": "guarantee",
+          "settings": {}
+        },
+        "acc_1": {
+          "type": "accordion",
+          "settings": {
+            "heading": "Was macht sie besonders?",
+            "content": "<p>Unsere Foundation enthält farbverändernde Pigmente, die sich beim Auftragen an deinen individuellen Hautton anpassen – für einen natürlichen Look ohne Farbton-Suche.</p>"
+          }
+        },
+        "acc_2": {
+          "type": "accordion",
+          "settings": {
+            "heading": "Funktioniert sie bei meiner Haut?",
+            "content": "<p>Die Formel wurde für reife Haut entwickelt und passt sich hellen bis mittleren Hauttönen an.</p>"
+          }
+        },
+        "acc_3": {
+          "type": "accordion",
+          "settings": {
+            "heading": "Wie wende ich sie an?",
+            "content": "<p>Eine kleine Menge auf Stirn, Wangen und Kinn geben und sanft verblenden – mit den Fingern, einem Pinsel oder einem Schwämmchen.</p>"
+          }
+        },
+        "acc_4": {
+          "type": "accordion",
+          "settings": {
+            "heading": "Wie funktioniert die Geld-zurück-Garantie?",
+            "content": "<p>Du hast 30 Tage Zeit, die Foundation zu testen. Bist du nicht zufrieden, erstatten wir dir den Kaufpreis.</p>"
+          }
+        },
+        "acc_5": {
+          "type": "accordion",
+          "settings": {
+            "heading": "Inhaltsstoffe",
+            "content": "<p>Hier die vollständige Liste der Inhaltsstoffe einfügen.</p>"
+          }
+        },
+        "acc_6": {
+          "type": "accordion",
+          "settings": {
+            "heading": "Versand & Rückgabe",
+            "content": "<p>Kostenloser Versand innerhalb Deutschlands. Bearbeitungszeit 1–2 Werktage, Lieferzeit 3–7 Werktage. Rückgabe innerhalb von 30 Tagen.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "top_bar",
+        "social_proof",
+        "rating",
+        "title",
+        "price",
+        "description",
+        "features",
+        "variant_picker",
+        "buy_buttons",
+        "shipping",
+        "stock",
+        "guarantee",
+        "acc_1",
+        "acc_2",
+        "acc_3",
+        "acc_4",
+        "acc_5",
+        "acc_6"
+      ],
+      "settings": {}
+    },
+    "testimonials": {
+      "type": "yumi-testimonials",
+      "blocks": {
+        "review_1": {
+          "type": "review",
+          "settings": {
+            "name": "Claire B."
+          }
+        },
+        "review_2": {
+          "type": "review",
+          "settings": {
+            "name": "Susanne M."
+          }
+        },
+        "review_3": {
+          "type": "review",
+          "settings": {
+            "name": "Doris W."
+          }
+        },
+        "review_4": {
+          "type": "review",
+          "settings": {
+            "name": "Petra K."
+          }
+        }
+      },
+      "block_order": [
+        "review_1",
+        "review_2",
+        "review_3",
+        "review_4"
+      ],
+      "settings": {}
+    },
+    "adapts": {
+      "type": "yumi-image-text",
+      "blocks": {
+        "bullet_1": {
+          "type": "bullet",
+          "settings": {
+            "icon": "half_circle",
+            "text": "Passt sich deinem Hautton an"
+          }
+        },
+        "bullet_2": {
+          "type": "bullet",
+          "settings": {
+            "icon": "sparkle",
+            "text": "Kaschiert Unebenheiten"
+          }
+        }
+      },
+      "block_order": [
+        "bullet_1",
+        "bullet_2"
+      ],
+      "settings": {}
+    },
+    "how_it_works": {
+      "type": "yumi-image-text",
+      "blocks": {
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "label": "01 · In Sekunden",
+            "title": "Intelligente Pigmente erwachen",
+            "text": "<p>Beim Auftragen brechen winzige Pigmentkapseln auf und passen sich deinem Hautton an.</p>"
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "label": "02 · Beim Verblenden",
+            "title": "Dein exakter Farbton entsteht",
+            "text": "<p>Während du verblendest, gleicht die Formel Rötungen und Altersflecken aus – für einen ebenmäßigen Teint.</p>"
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "label": "03 · Den ganzen Tag",
+            "title": "Makelloses Finish – den ganzen Tag",
+            "text": "<p>Leicht, atmungsaktiv und langanhaltend – ohne sich in Fältchen abzusetzen. Mit LSF 15.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "step_1",
+        "step_2",
+        "step_3"
+      ],
+      "settings": {
+        "image_position": "right",
+        "image_ratio": "4 / 5",
+        "heading": "So funktioniert's",
+        "text": ""
+      }
+    },
+    "before_after": {
+      "type": "yumi-before-after",
+      "blocks": {
+        "stat_1": {
+          "type": "stat",
+          "settings": {
+            "value": "94%",
+            "text": "sagen, dass ihre Haut sofort ebenmäßiger aussah*"
+          }
+        },
+        "stat_2": {
+          "type": "stat",
+          "settings": {
+            "value": "97%",
+            "text": "fanden, dass sich der Farbton perfekt anpasst*"
+          }
+        },
+        "stat_3": {
+          "type": "stat",
+          "settings": {
+            "value": "92%",
+            "text": "bemerkten weniger sichtbare Fältchen*"
+          }
+        }
+      },
+      "block_order": [
+        "stat_1",
+        "stat_2",
+        "stat_3"
+      ],
+      "settings": {}
+    },
+    "comparison": {
+      "type": "yumi-comparison",
+      "blocks": {
+        "row_1": {
+          "type": "row",
+          "settings": {
+            "text": "Passt sich dem Hautton an"
+          }
+        },
+        "row_2": {
+          "type": "row",
+          "settings": {
+            "text": "LSF 15"
+          }
+        },
+        "row_3": {
+          "type": "row",
+          "settings": {
+            "text": "Setzt sich nicht in Fältchen ab"
+          }
+        },
+        "row_4": {
+          "type": "row",
+          "settings": {
+            "text": "Federleicht auf der Haut"
+          }
+        },
+        "row_5": {
+          "type": "row",
+          "settings": {
+            "text": "Kein Maskeneffekt"
+          }
+        }
+      },
+      "block_order": [
+        "row_1",
+        "row_2",
+        "row_3",
+        "row_4",
+        "row_5"
+      ],
+      "settings": {}
+    },
+    "faq": {
+      "type": "yumi-faq",
+      "blocks": {
+        "faq_1": {
+          "type": "question",
+          "settings": {
+            "question": "Wie trage ich sie auf?",
+            "answer": "<p>Eine kleine Menge mit den Fingern, einem Pinsel oder einem Schwämmchen auftragen und sanft verblenden.</p>"
+          }
+        },
+        "faq_2": {
+          "type": "question",
+          "settings": {
+            "question": "Wie lange hält sie?",
+            "answer": "<p>Bis zu 16 Stunden – ohne Nachpudern.</p>"
+          }
+        },
+        "faq_3": {
+          "type": "question",
+          "settings": {
+            "question": "Wie stark ist die Deckkraft?",
+            "answer": "<p>Leicht bis mittel und schichtbar – für ein natürliches Ergebnis.</p>"
+          }
+        },
+        "faq_4": {
+          "type": "question",
+          "settings": {
+            "question": "Ist sie für empfindliche Haut geeignet?",
+            "answer": "<p>Ja, die Formel ist dermatologisch getestet und parfümfrei.</p>"
+          }
+        },
+        "faq_5": {
+          "type": "question",
+          "settings": {
+            "question": "Wie funktioniert die Geld-zurück-Garantie?",
+            "answer": "<p>Du hast 30 Tage Zeit, die Foundation zu testen. Bist du nicht zufrieden, erstatten wir dir den Kaufpreis.</p>"
+          }
+        },
+        "faq_6": {
+          "type": "question",
+          "settings": {
+            "question": "Wohin versendet ihr?",
+            "answer": "<p>Wir versenden nach Deutschland, Österreich und in die Schweiz.</p>"
+          }
+        },
+        "faq_7": {
+          "type": "question",
+          "settings": {
+            "question": "Kann ich meine Bestellung zurückgeben?",
+            "answer": "<p>Ja, innerhalb von 30 Tagen nach Erhalt.</p>"
+          }
+        },
+        "faq_8": {
+          "type": "question",
+          "settings": {
+            "question": "Fallen Zölle oder Steuern an?",
+            "answer": "<p>Innerhalb der EU fallen keine zusätzlichen Zölle an.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4",
+        "faq_5",
+        "faq_6",
+        "faq_7",
+        "faq_8"
+      ],
+      "settings": {}
+    },
+    "ingredients": {
+      "type": "yumi-cards",
+      "blocks": {
+        "card_1": {
+          "type": "card",
+          "settings": {
+            "title": "Glycerin",
+            "text": "<p>Spendet Feuchtigkeit für einen frischen, prallen Look.</p>",
+            "pill": "Feuchtigkeit"
+          }
+        },
+        "card_2": {
+          "type": "card",
+          "settings": {
+            "title": "Vitamin E",
+            "text": "<p>Nährt und schützt mit beruhigendem Vitamin E.</p>",
+            "pill": "Schutz"
+          }
+        },
+        "card_3": {
+          "type": "card",
+          "settings": {
+            "title": "Mica",
+            "text": "<p>Lichtreflektierende Pigmente für einen sanften, gesunden Glow.</p>",
+            "pill": "Glow"
+          }
+        }
+      },
+      "block_order": [
+        "card_1",
+        "card_2",
+        "card_3"
+      ],
+      "settings": {}
+    },
+    "brand_banner": {
+      "type": "yumi-feature-banner",
+      "blocks": {
+        "item_1": {
+          "type": "item",
+          "settings": {
+            "icon": "eye",
+            "title": "Sichtbare Ergebnisse in Sekunden",
+            "text": "Passt sich deinem Hautton beim Auftragen an."
+          }
+        },
+        "item_2": {
+          "type": "item",
+          "settings": {
+            "icon": "users",
+            "title": "Über 50.000 Frauen vertrauen uns",
+            "text": "Tausende haben ihren perfekten Farbton gefunden."
+          }
+        },
+        "item_3": {
+          "type": "item",
+          "settings": {
+            "icon": "leaf",
+            "title": "Clean & tierversuchsfrei",
+            "text": "Vegan und ohne fragwürdige Inhaltsstoffe."
+          }
+        }
+      },
+      "block_order": [
+        "item_1",
+        "item_2",
+        "item_3"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "testimonials",
+    "adapts",
+    "how_it_works",
+    "before_after",
+    "comparison",
+    "faq",
+    "ingredients",
+    "brand_banner"
+  ]
+}

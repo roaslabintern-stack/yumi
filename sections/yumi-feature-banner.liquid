@@ -1,0 +1,82 @@
+{{ 'yumi-pdp.css' | asset_url | stylesheet_tag }}
+<style>
+  #shopify-section-{{ section.id }} .y-section { --y-bg: {{ section.settings.background }}; --y-pt: {{ section.settings.padding_top }}px; --y-pb: {{ section.settings.padding_bottom }}px; --y-width: {{ section.settings.max_width }}px; }
+  #shopify-section-{{ section.id }} .y-banner { --y-banner-bg: {{ section.settings.card_background | default: '#f5f1f3' }}; }
+</style>
+
+<div class="y-section">
+  <div class="y-container">
+    <div class="y-banner">
+      <div class="y-banner__content">
+        {%- if section.settings.heading != blank -%}<h2 class="y-heading y-h2 y-hl-text">{{ section.settings.heading }}</h2>{%- endif -%}
+        {%- if section.settings.text != blank -%}<div class="y-rte">{{ section.settings.text }}</div>{%- endif -%}
+        {%- if section.blocks.size > 0 or section.settings.box_icon != blank -%}
+          <div class="y-banner__box">
+            {%- if section.settings.box_icon != blank -%}
+              <div class="y-banner__box-icon">{{ section.settings.box_icon | image_url: width: 160 | image_tag: loading: 'lazy', alt: '' }}</div>
+            {%- endif -%}
+            {%- for block in section.blocks -%}
+              <div class="y-banner__item" {{ block.shopify_attributes }}>
+                <span class="y-banner__item-icon">{% render 'yumi-icon', icon: block.settings.icon %}</span>
+                <div>
+                  <strong>{{ block.settings.title }}</strong>
+                  {%- if block.settings.text != blank -%}<span>{{ block.settings.text }}</span>{%- endif -%}
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+      <div class="y-banner__media">
+        {%- if section.settings.image != blank -%}
+          {{ section.settings.image | image_url: width: 1200 | image_tag: loading: 'lazy', sizes: '(min-width: 750px) 50vw, 100vw', widths: '400, 600, 800, 1000, 1200' }}
+        {%- else -%}
+          {{ 'lifestyle-2' | placeholder_svg_tag: 'y-ph' }}
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "YUMI Marken-Banner",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "inline_richtext", "id": "heading", "label": "Überschrift", "default": "Koreanische Beauty <em>für deine Haut</em>", "info": "Kursiv formatierter Text wird farbig hervorgehoben." },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>YUMI ist mit einer einfachen Idee entstanden: koreanische Innovation für Make-up, das für deine Haut gemacht ist – nicht gegen sie.</p>" },
+    { "type": "image_picker", "id": "box_icon", "label": "Icon in der Box (z. B. Flaggen)" },
+    { "type": "image_picker", "id": "image", "label": "Bild" },
+    { "type": "header", "content": "Layout" },
+    { "type": "color", "id": "background", "label": "Hintergrundfarbe Section", "default": "#ffffff" },
+    { "type": "color_background", "id": "card_background", "label": "Hintergrund Karte", "default": "linear-gradient(135deg, #f7f4f5, #efe9ec)" },
+    { "type": "range", "id": "max_width", "label": "Max. Breite", "min": 600, "max": 1400, "step": 20, "unit": "px", "default": 900 },
+    { "type": "range", "id": "padding_top", "label": "Abstand oben", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 48 },
+    { "type": "range", "id": "padding_bottom", "label": "Abstand unten", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 64 }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Punkt",
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icon", "default": "eye", "options": [
+          { "value": "half_circle", "label": "Halbkreis" }, { "value": "sparkle", "label": "Funkeln" }, { "value": "clock", "label": "Uhr" }, { "value": "sun", "label": "Sonne" }, { "value": "drop", "label": "Tropfen" }, { "value": "heart", "label": "Herz" }, { "value": "leaf", "label": "Blatt" }, { "value": "shield", "label": "Schild" }, { "value": "star", "label": "Stern" }, { "value": "truck", "label": "Versand" }, { "value": "gift", "label": "Geschenk" }, { "value": "eye", "label": "Auge" }, { "value": "users", "label": "Personen" }, { "value": "flask", "label": "Labor" }, { "value": "check", "label": "Haken" }, { "value": "refresh", "label": "Erneuern" }
+        ] },
+        { "type": "text", "id": "title", "label": "Titel", "default": "Sichtbare Ergebnisse in Sekunden" },
+        { "type": "text", "id": "text", "label": "Text", "default": "Passt sich deinem Hautton beim Auftragen an." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "YUMI Marken-Banner",
+      "blocks": [
+        { "type": "item", "settings": { "icon": "eye", "title": "Sichtbare Ergebnisse in Sekunden", "text": "Passt sich deinem Hautton beim Auftragen an." } },
+        { "type": "item", "settings": { "icon": "users", "title": "Über 50.000 Frauen vertrauen uns", "text": "Tausende haben ihren perfekten Farbton gefunden." } },
+        { "type": "item", "settings": { "icon": "leaf", "title": "Clean & tierversuchsfrei", "text": "Vegan und ohne fragwürdige Inhaltsstoffe." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

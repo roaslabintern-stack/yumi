@@ -1,0 +1,89 @@
+{{ 'yumi-pdp.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'yumi-pdp.js' | asset_url }}" defer="defer"></script>
+<style>
+  #shopify-section-{{ section.id }} .y-section { --y-bg: {{ section.settings.background }}; --y-pt: {{ section.settings.padding_top }}px; --y-pb: {{ section.settings.padding_bottom }}px; }
+  #shopify-section-{{ section.id }} .y-stats { --y-cols: {{ section.blocks.size | at_least: 1 | at_most: 4 }}; }
+</style>
+
+<div class="y-section">
+  <div class="y-container">
+    <div class="y-center">
+      {%- if section.settings.eyebrow != blank -%}<span class="y-eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2 class="y-heading y-h2 y-hl-text">{{ section.settings.heading }}</h2>{%- endif -%}
+    </div>
+
+    <div class="y-compare">
+      <div class="y-compare__frame" data-y-compare-frame>
+        {%- if section.settings.image_before != blank -%}
+          {{ section.settings.image_before | image_url: width: 1400 | image_tag: loading: 'lazy', class: 'y-compare__before', alt: section.settings.label_before }}
+        {%- else -%}
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'y-ph y-compare__before' }}
+        {%- endif -%}
+        {%- if section.settings.image_after != blank -%}
+          {{ section.settings.image_after | image_url: width: 1400 | image_tag: loading: 'lazy', class: 'y-compare__after', alt: section.settings.label_after }}
+        {%- else -%}
+          {{ 'lifestyle-2' | placeholder_svg_tag: 'y-ph y-compare__after' }}
+        {%- endif -%}
+        {%- if section.settings.label_before != blank -%}<span class="y-compare__tag y-compare__tag--before">{{ section.settings.label_before }}</span>{%- endif -%}
+        {%- if section.settings.label_after != blank -%}<span class="y-compare__tag y-compare__tag--after">{{ section.settings.label_after }}</span>{%- endif -%}
+        <span class="y-compare__handle"></span>
+        <input class="y-compare__range" type="range" min="0" max="100" value="50" aria-label="Vorher-Nachher-Vergleich verschieben">
+      </div>
+    </div>
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="y-stats">
+        {%- for block in section.blocks -%}
+          <div class="y-stat" {{ block.shopify_attributes }}>
+            <strong>{{ block.settings.value }}</strong>
+            <span>{{ block.settings.text }}</span>
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.footnote != blank -%}<p class="y-footnote">{{ section.settings.footnote }}</p>{%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "YUMI Vorher/Nachher",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Kleine Überschrift", "default": "Klinisch getestet" },
+    { "type": "inline_richtext", "id": "heading", "label": "Überschrift", "default": "Wir versprechen keine Ergebnisse. Wir beweisen sie." },
+    { "type": "image_picker", "id": "image_before", "label": "Bild vorher" },
+    { "type": "image_picker", "id": "image_after", "label": "Bild nachher" },
+    { "type": "text", "id": "label_before", "label": "Label vorher", "default": "Vorher" },
+    { "type": "text", "id": "label_after", "label": "Label nachher", "default": "Nachher" },
+    { "type": "text", "id": "footnote", "label": "Fußnote", "default": "*Basierend auf einer Anwenderstudie mit 112 Frauen nach 4 Wochen." },
+    { "type": "header", "content": "Layout" },
+    { "type": "color", "id": "background", "label": "Hintergrundfarbe", "default": "#f4f1f2" },
+    { "type": "range", "id": "padding_top", "label": "Abstand oben", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 56 },
+    { "type": "range", "id": "padding_bottom", "label": "Abstand unten", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 56 }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Statistik",
+      "settings": [
+        { "type": "text", "id": "value", "label": "Wert", "default": "94%" },
+        { "type": "text", "id": "text", "label": "Text", "default": "sagen, dass ihre Haut sofort ebenmäßiger aussah*" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "YUMI Vorher/Nachher",
+      "blocks": [
+        { "type": "stat", "settings": { "value": "94%", "text": "sagen, dass ihre Haut sofort ebenmäßiger aussah*" } },
+        { "type": "stat", "settings": { "value": "97%", "text": "fanden, dass sich der Farbton perfekt anpasst*" } },
+        { "type": "stat", "settings": { "value": "92%", "text": "bemerkten weniger sichtbare Fältchen*" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

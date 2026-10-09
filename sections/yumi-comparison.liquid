@@ -1,0 +1,85 @@
+{{ 'yumi-pdp.css' | asset_url | stylesheet_tag }}
+<style>
+  #shopify-section-{{ section.id }} .y-section { --y-bg: {{ section.settings.background }}; --y-pt: {{ section.settings.padding_top }}px; --y-pb: {{ section.settings.padding_bottom }}px; }
+</style>
+
+{%- capture yes_mark -%}<span class="y-mark y-mark--yes" aria-label="Ja"><svg viewBox="0 0 12 12"><path d="M2.5 6.2l2.3 2.3 4.7-4.8"/></svg></span>{%- endcapture -%}
+{%- capture no_mark -%}<span class="y-mark y-mark--no" aria-label="Nein"><svg viewBox="0 0 12 12"><path d="M3.5 3.5l5 5M8.5 3.5l-5 5"/></svg></span>{%- endcapture -%}
+
+<div class="y-section">
+  <div class="y-container">
+    <h2 class="y-heading y-h2 y-center">
+      {{ section.settings.heading }}
+      {%- if section.settings.logo != blank -%}
+        <span class="y-brand-inline">{{ section.settings.logo | image_url: width: 300 | image_tag: loading: 'lazy', alt: section.settings.brand_name }}</span>
+      {%- elsif section.settings.brand_name != blank -%}
+        <span class="y-brand-inline">{{ section.settings.brand_name }}</span>
+      {%- endif -%}
+      {{ section.settings.heading_suffix }}
+    </h2>
+
+    <div class="y-ctable" role="table">
+      <div class="y-ctable__row y-ctable__row--head" role="row">
+        <div role="columnheader"><span class="visually-hidden">Vorteil</span></div>
+        <div role="columnheader">
+          {%- if section.settings.logo != blank and section.settings.logo_in_table -%}
+            {{ section.settings.logo | image_url: width: 200 | image_tag: loading: 'lazy', alt: section.settings.brand_name }}
+          {%- else -%}
+            {{ section.settings.brand_name }}
+          {%- endif -%}
+        </div>
+        <div role="columnheader">{{ section.settings.others_label }}</div>
+      </div>
+      {%- for block in section.blocks -%}
+        <div class="y-ctable__row" role="row" {{ block.shopify_attributes }}>
+          <div role="cell">{{ block.settings.text }}</div>
+          <div role="cell">{% if block.settings.us %}{{ yes_mark }}{% else %}{{ no_mark }}{% endif %}</div>
+          <div role="cell">{% if block.settings.others %}{{ yes_mark }}{% else %}{{ no_mark }}{% endif %}</div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "YUMI Vergleichstabelle",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Überschrift", "default": "Warum" },
+    { "type": "text", "id": "brand_name", "label": "Markenname", "default": "YUMI" },
+    { "type": "image_picker", "id": "logo", "label": "Logo (optional, ersetzt den Markennamen)" },
+    { "type": "checkbox", "id": "logo_in_table", "label": "Logo auch im Tabellenkopf", "default": false },
+    { "type": "text", "id": "heading_suffix", "label": "Überschrift-Ende", "default": "?" },
+    { "type": "text", "id": "others_label", "label": "Label Andere", "default": "Andere" },
+    { "type": "header", "content": "Layout" },
+    { "type": "color", "id": "background", "label": "Hintergrundfarbe", "default": "#ffffff" },
+    { "type": "range", "id": "padding_top", "label": "Abstand oben", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 56 },
+    { "type": "range", "id": "padding_bottom", "label": "Abstand unten", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 48 }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Zeile",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Vorteil", "default": "Passt sich dem Hautton an" },
+        { "type": "checkbox", "id": "us", "label": "Wir", "default": true },
+        { "type": "checkbox", "id": "others", "label": "Andere", "default": false }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "YUMI Vergleichstabelle",
+      "blocks": [
+        { "type": "row", "settings": { "text": "Passt sich dem Hautton an" } },
+        { "type": "row", "settings": { "text": "LSF 15" } },
+        { "type": "row", "settings": { "text": "Setzt sich nicht in Fältchen ab" } },
+        { "type": "row", "settings": { "text": "Federleicht auf der Haut" } },
+        { "type": "row", "settings": { "text": "Kein Maskeneffekt" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

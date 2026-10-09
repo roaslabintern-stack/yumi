@@ -1,0 +1,42 @@
+{%- comment -%}
+  Renders a line icon used by the YUMI product page sections.
+  Usage: {% render 'yumi-icon', icon: 'sparkle' %}
+{%- endcomment -%}
+<svg class="y-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+  {%- case icon -%}
+    {%- when 'half_circle' -%}
+      <circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/>
+    {%- when 'sparkle' -%}
+      <path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 16l.7 1.8 1.8.7-1.8.7L19 21l-.7-1.8-1.8-.7 1.8-.7z"/>
+    {%- when 'clock' -%}
+      <circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>
+    {%- when 'sun' -%}
+      <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>
+    {%- when 'drop' -%}
+      <path d="M12 3s6 6.4 6 11a6 6 0 0 1-12 0c0-4.6 6-11 6-11z"/>
+    {%- when 'heart' -%}
+      <path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/>
+    {%- when 'leaf' -%}
+      <path d="M5 19c0-8 5-13 14-14 0 9-5 14-13 14z"/><path d="M5 19l7-7"/>
+    {%- when 'shield' -%}
+      <path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/>
+    {%- when 'star' -%}
+      <path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/>
+    {%- when 'truck' -%}
+      <path d="M3 6h11v10H3zM14 9h4l3 3v4h-7"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/>
+    {%- when 'gift' -%}
+      <path d="M4 10h16v10H4zM3 7h18v3H3zM12 7v13"/><path d="M12 7c-1.5-3-5-3-5-1s3 1 5 1zM12 7c1.5-3 5-3 5-1s-3 1-5 1z"/>
+    {%- when 'eye' -%}
+      <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>
+    {%- when 'users' -%}
+      <circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><circle cx="17" cy="9" r="2.5"/><path d="M16 14.2c3 .3 5.5 2.4 5.5 5.8"/>
+    {%- when 'flask' -%}
+      <path d="M9 3h6M10 3v6l-5.5 9.5A2 2 0 0 0 6.2 21h11.6a2 2 0 0 0 1.7-2.5L14 9V3"/><path d="M7.5 15h9"/>
+    {%- when 'check' -%}
+      <circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.7 2.7L16 10"/>
+    {%- when 'refresh' -%}
+      <path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 5v6h-6"/>
+    {%- else -%}
+      <circle cx="12" cy="12" r="9"/>
+  {%- endcase -%}
+</svg>

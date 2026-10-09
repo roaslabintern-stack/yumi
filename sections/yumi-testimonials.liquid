@@ -1,0 +1,102 @@
+{{ 'yumi-pdp.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'yumi-pdp.js' | asset_url }}" defer="defer"></script>
+<style>
+  #shopify-section-{{ section.id }} .y-section { --y-bg: {{ section.settings.background }}; --y-pt: {{ section.settings.padding_top }}px; --y-pb: {{ section.settings.padding_bottom }}px; }
+</style>
+
+<div class="y-section">
+  <div class="y-container">
+    <div class="y-center">
+      {%- if section.settings.eyebrow != blank -%}<span class="y-eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2 class="y-heading y-h2 y-hl-pill">{{ section.settings.heading }}</h2>{%- endif -%}
+    </div>
+
+    <div class="y-slider" data-y-slider>
+      <button type="button" class="y-slider__arrow y-slider__arrow--prev" aria-label="Zurück">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg>
+      </button>
+      <div class="y-slider__track">
+        {%- for block in section.blocks -%}
+          <article class="y-review" {{ block.shopify_attributes }}>
+            <div class="y-review__media">
+              <div>
+                {%- if block.settings.image_before != blank -%}
+                  {{ block.settings.image_before | image_url: width: 500 | image_tag: loading: 'lazy', alt: block.settings.name }}
+                {%- else -%}
+                  {{ 'lifestyle-1' | placeholder_svg_tag: 'y-ph' }}
+                {%- endif -%}
+                {%- if section.settings.label_before != blank -%}<span class="y-review__label">{{ section.settings.label_before }}</span>{%- endif -%}
+              </div>
+              <div>
+                {%- if block.settings.image_after != blank -%}
+                  {{ block.settings.image_after | image_url: width: 500 | image_tag: loading: 'lazy', alt: block.settings.name }}
+                {%- else -%}
+                  {{ 'lifestyle-2' | placeholder_svg_tag: 'y-ph' }}
+                {%- endif -%}
+                {%- if section.settings.label_after != blank -%}<span class="y-review__label y-review__label--after">{{ section.settings.label_after }}</span>{%- endif -%}
+              </div>
+            </div>
+            <div class="y-review__body">
+              <div class="y-review__head">
+                <span class="y-review__name">{{ block.settings.name }}</span>
+                {%- if section.settings.verified_text != blank -%}
+                  <span class="y-review__verified">{% render 'yumi-icon', icon: 'check' %}{{ section.settings.verified_text }}</span>
+                {%- endif -%}
+              </div>
+              <span class="y-stars" aria-label="{{ block.settings.stars }} von 5 Sternen">
+                {%- for i in (1..block.settings.stars) -%}<svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L10 14.9l-5.2 2.8 1-5.9L1.5 7.7l5.9-.8z"/></svg>{%- endfor -%}
+              </span>
+              <div class="y-review__text">{{ block.settings.text }}</div>
+            </div>
+          </article>
+        {%- endfor -%}
+      </div>
+      <button type="button" class="y-slider__arrow y-slider__arrow--next" aria-label="Weiter">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "YUMI Kundenstimmen",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Kleine Überschrift", "default": "Geliebt von 50.000+" },
+    { "type": "inline_richtext", "id": "heading", "label": "Überschrift", "default": "Frauen, die Foundation schon aufgegeben hatten", "info": "Kursiv formatierter Text wird farbig hervorgehoben." },
+    { "type": "text", "id": "label_before", "label": "Label Vorher", "default": "Vorher" },
+    { "type": "text", "id": "label_after", "label": "Label Nachher", "default": "Nachher" },
+    { "type": "text", "id": "verified_text", "label": "Verifiziert-Text", "default": "Verifizierter Kauf" },
+    { "type": "header", "content": "Layout" },
+    { "type": "color", "id": "background", "label": "Hintergrundfarbe", "default": "#ffffff" },
+    { "type": "range", "id": "padding_top", "label": "Abstand oben", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 56 },
+    { "type": "range", "id": "padding_bottom", "label": "Abstand unten", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Bewertung",
+      "settings": [
+        { "type": "image_picker", "id": "image_before", "label": "Bild vorher" },
+        { "type": "image_picker", "id": "image_after", "label": "Bild nachher" },
+        { "type": "text", "id": "name", "label": "Name", "default": "Claire B." },
+        { "type": "range", "id": "stars", "label": "Sterne", "min": 1, "max": 5, "step": 1, "default": 5 },
+        { "type": "richtext", "id": "text", "label": "Text", "default": "<p>„Ich hatte es satt, dass sich Foundation in meinen Fältchen absetzt. Diese hier verschmilzt einfach mit der Haut und hält den ganzen Tag. Endlich fühle ich mich wieder wohl.“</p>" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "YUMI Kundenstimmen",
+      "blocks": [
+        { "type": "review", "settings": { "name": "Claire B." } },
+        { "type": "review", "settings": { "name": "Susanne M." } },
+        { "type": "review", "settings": { "name": "Doris W." } },
+        { "type": "review", "settings": { "name": "Petra K." } }
+      ]
+    }
+  ]
+}
+{% endschema %}
