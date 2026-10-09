@@ -19,15 +19,15 @@
         "help": {
           "type": "menu",
           "settings": {
-            "heading": "Hilfe",
+            "heading": "Help",
             "menu": "footer"
           }
         },
         "contact": {
           "type": "text",
           "settings": {
-            "heading": "Kontakt",
-            "text": "<p>Mo–Fr, 9–17 Uhr<br/>Antwort innerhalb von 24 Stunden</p>"
+            "heading": "Contact",
+            "text": "<p>Mon–Fri, 9am–5pm AEST<br/>We reply within 24 hours</p>"
           }
         },
         "newsletter": {

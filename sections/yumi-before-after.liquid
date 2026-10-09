@@ -27,7 +27,7 @@
         {%- if section.settings.label_before != blank -%}<span class="y-compare__tag y-compare__tag--before">{{ section.settings.label_before }}</span>{%- endif -%}
         {%- if section.settings.label_after != blank -%}<span class="y-compare__tag y-compare__tag--after">{{ section.settings.label_after }}</span>{%- endif -%}
         <span class="y-compare__handle"></span>
-        <input class="y-compare__range" type="range" min="0" max="100" value="50" aria-label="Vorher-Nachher-Vergleich verschieben">
+        <input class="y-compare__range" type="range" min="0" max="100" value="50" aria-label="Drag to compare before and after">
       </div>
     </div>
 
@@ -53,13 +53,13 @@
   "class": "section",
   "max_blocks": 4,
   "settings": [
-    { "type": "text", "id": "eyebrow", "label": "Kleine Überschrift", "default": "Klinisch getestet" },
-    { "type": "inline_richtext", "id": "heading", "label": "Überschrift", "default": "Wir versprechen keine Ergebnisse. Wir beweisen sie." },
+    { "type": "text", "id": "eyebrow", "label": "Kleine Überschrift", "default": "Clinically tested" },
+    { "type": "inline_richtext", "id": "heading", "label": "Überschrift", "default": "We don't just promise results. We prove them." },
     { "type": "image_picker", "id": "image_before", "label": "Bild vorher" },
     { "type": "image_picker", "id": "image_after", "label": "Bild nachher" },
-    { "type": "text", "id": "label_before", "label": "Label vorher", "default": "Vorher" },
-    { "type": "text", "id": "label_after", "label": "Label nachher", "default": "Nachher" },
-    { "type": "text", "id": "footnote", "label": "Fußnote", "default": "*Basierend auf einer Anwenderstudie mit 112 Frauen nach 4 Wochen." },
+    { "type": "text", "id": "label_before", "label": "Label vorher", "default": "Before" },
+    { "type": "text", "id": "label_after", "label": "Label nachher", "default": "After" },
+    { "type": "text", "id": "footnote", "label": "Fußnote", "default": "*Based on a consumer study with 112 women after 4 weeks." },
     { "type": "header", "content": "Layout" },
     { "type": "color", "id": "background", "label": "Hintergrundfarbe", "default": "#f4f1f2" },
     { "type": "range", "id": "padding_top", "label": "Abstand oben", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 56 },
@@ -71,7 +71,7 @@
       "name": "Statistik",
       "settings": [
         { "type": "text", "id": "value", "label": "Wert", "default": "94%" },
-        { "type": "text", "id": "text", "label": "Text", "default": "sagen, dass ihre Haut sofort ebenmäßiger aussah*" }
+        { "type": "text", "id": "text", "label": "Text", "default": "said their skin instantly looked more even*" }
       ]
     }
   ],
@@ -79,9 +79,9 @@
     {
       "name": "YUMI Vorher/Nachher",
       "blocks": [
-        { "type": "stat", "settings": { "value": "94%", "text": "sagen, dass ihre Haut sofort ebenmäßiger aussah*" } },
-        { "type": "stat", "settings": { "value": "97%", "text": "fanden, dass sich der Farbton perfekt anpasst*" } },
-        { "type": "stat", "settings": { "value": "92%", "text": "bemerkten weniger sichtbare Fältchen*" } }
+        { "type": "stat", "settings": { "value": "94%", "text": "said their skin instantly looked more even*" } },
+        { "type": "stat", "settings": { "value": "97%", "text": "said the shade matched perfectly*" } },
+        { "type": "stat", "settings": { "value": "92%", "text": "noticed fewer visible fine lines*" } }
       ]
     }
   ]

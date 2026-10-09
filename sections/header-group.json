@@ -13,7 +13,7 @@
         "announcement-bar-0": {
           "type": "announcement",
           "settings": {
-            "text": "Kostenloser Versand per DHL",
+            "text": "Free shipping Australia-wide",
             "text_alignment": "center",
             "color_scheme": "accent-1",
             "link": ""
@@ -35,7 +35,7 @@
         "menu": "main-menu",
         "highlight_active_link": false,
         "highlighted_link_color_scheme": "accent-2",
-        "mobile_menu_title": "Menü",
+        "mobile_menu_title": "Menu",
         "secondary_menu": "",
         "menu_color_scheme": "background-1",
         "mobile_logo_position": "center",

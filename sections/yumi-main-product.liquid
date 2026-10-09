@@ -89,7 +89,7 @@
               {%- endfor -%}
             {%- else -%}
               {%- for i in (1..9) -%}
-                <button type="button" class="y-gallery__thumb" aria-current="{% if forloop.first %}true{% else %}false{% endif %}" aria-label="Bild {{ forloop.index }}">
+                <button type="button" class="y-gallery__thumb" aria-current="{% if forloop.first %}true{% else %}false{% endif %}" aria-label="Image {{ forloop.index }}">
                   {{- 'product-1' | placeholder_svg_tag: 'y-ph' -}}
                 </button>
               {%- endfor -%}
@@ -315,7 +315,7 @@
             {{ 'product-1' | placeholder_svg_tag: 'y-ph' }}
           {%- endif -%}
           <div>
-            <div class="y-sticky__title">{{ product.title | default: 'Produktname' | escape }}</div>
+            <div class="y-sticky__title">{{ product.title | default: 'Product name' | escape }}</div>
             <div class="y-sticky__price">
               <span data-y-price>{{ current_variant.price | money }}</span>
               <s data-y-compare{% if current_variant.compare_at_price <= current_variant.price %} hidden{% endif %}>{% if current_variant.compare_at_price > current_variant.price %}{{ current_variant.compare_at_price | money }}{% endif %}</s>
@@ -378,7 +378,7 @@
       "limit": 1,
       "settings": [
         { "type": "text", "id": "prefix", "label": "Kürzel (z. B. Ländercode)", "default": "KR" },
-        { "type": "text", "id": "text", "label": "Text", "default": "Die #1 Foundation in Korea" }
+        { "type": "text", "id": "text", "label": "Text", "default": "The #1 foundation in Korea" }
       ]
     },
     {
@@ -389,7 +389,7 @@
         { "type": "image_picker", "id": "avatar_1", "label": "Avatar 1" },
         { "type": "image_picker", "id": "avatar_2", "label": "Avatar 2" },
         { "type": "image_picker", "id": "avatar_3", "label": "Avatar 3" },
-        { "type": "text", "id": "text", "label": "Text", "default": "Linda & 50.000+ andere haben gekauft" }
+        { "type": "text", "id": "text", "label": "Text", "default": "Linda & 50k+ others purchased" }
       ]
     },
     {
@@ -398,7 +398,7 @@
       "limit": 1,
       "settings": [
         { "type": "text", "id": "rating", "label": "Bewertung", "default": "4,8/5" },
-        { "type": "text", "id": "reviews_text", "label": "Bewertungs-Text", "default": "7.481 Bewertungen" },
+        { "type": "text", "id": "reviews_text", "label": "Bewertungs-Text", "default": "7,481 reviews" },
         { "type": "url", "id": "reviews_link", "label": "Link (z. B. zu den Bewertungen)" }
       ]
     },
@@ -416,12 +416,12 @@
       "limit": 1,
       "settings": [
         { "type": "checkbox", "id": "show_save_badge", "label": "Ersparnis-Badge anzeigen", "default": true },
-        { "type": "text", "id": "save_text", "label": "Badge-Text", "default": "Spare [percent]", "info": "[percent] wird durch die Ersparnis in % ersetzt." },
+        { "type": "text", "id": "save_text", "label": "Badge-Text", "default": "Save [percent]", "info": "[percent] wird durch die Ersparnis in % ersetzt." },
         { "type": "header", "content": "Ratenzahlung" },
-        { "type": "text", "id": "installment_text", "label": "Text", "default": "oder 4 zinsfreie Raten à [amount] mit", "info": "[amount] wird durch den Ratenbetrag ersetzt. Leer lassen zum Ausblenden." },
+        { "type": "text", "id": "installment_text", "label": "Text", "default": "or 4 interest-free payments of [amount] with", "info": "[amount] wird durch den Ratenbetrag ersetzt. Leer lassen zum Ausblenden." },
         { "type": "range", "id": "installment_count", "label": "Anzahl Raten", "min": 2, "max": 12, "step": 1, "default": 4 },
-        { "type": "text", "id": "installment_pill", "label": "Anbieter-Label", "default": "Klarna." },
-        { "type": "color", "id": "installment_pill_color", "label": "Label-Farbe", "default": "#ffb3c7" }
+        { "type": "text", "id": "installment_pill", "label": "Anbieter-Label", "default": "afterpay" },
+        { "type": "color", "id": "installment_pill_color", "label": "Label-Farbe", "default": "#b2fce4" }
       ]
     },
     {
@@ -429,7 +429,7 @@
       "name": "Beschreibung",
       "limit": 1,
       "settings": [
-        { "type": "richtext", "id": "text", "label": "Text", "info": "Leer lassen, um die Produktbeschreibung zu verwenden.", "default": "<p><strong>Mit koreanischer Beauty-Innovation entwickelt – speziell für Haut ab 50.</strong> Sie mildert Fältchen, kaschiert Altersflecken und belebt müde wirkende Haut – mit einem perfekten, sich selbst anpassenden Farbton.</p>" }
+        { "type": "richtext", "id": "text", "label": "Text", "info": "Leer lassen, um die Produktbeschreibung zu verwenden.", "default": "<p><strong>Created with Korean beauty innovation and designed for 50+.</strong> It softens wrinkles, disguises age spots and revives tired-looking skin — then finishes with a perfect, self-adjusting shade match.</p>" }
       ]
     },
     {
@@ -439,19 +439,19 @@
         { "type": "select", "id": "icon_1", "label": "Icon 1", "default": "half_circle", "options": [
           { "value": "none", "label": "Kein Icon" }, { "value": "half_circle", "label": "Halbkreis" }, { "value": "sparkle", "label": "Funkeln" }, { "value": "clock", "label": "Uhr" }, { "value": "sun", "label": "Sonne" }, { "value": "drop", "label": "Tropfen" }, { "value": "heart", "label": "Herz" }, { "value": "leaf", "label": "Blatt" }, { "value": "shield", "label": "Schild" }, { "value": "star", "label": "Stern" }, { "value": "truck", "label": "Versand" }, { "value": "gift", "label": "Geschenk" }, { "value": "eye", "label": "Auge" }, { "value": "users", "label": "Personen" }, { "value": "flask", "label": "Labor" }, { "value": "check", "label": "Haken" }, { "value": "refresh", "label": "Erneuern" }
         ] },
-        { "type": "text", "id": "text_1", "label": "Text 1", "default": "Passt sich deinem Hautton an" },
+        { "type": "text", "id": "text_1", "label": "Text 1", "default": "Adapts to your skin tone" },
         { "type": "select", "id": "icon_2", "label": "Icon 2", "default": "sparkle", "options": [
           { "value": "none", "label": "Kein Icon" }, { "value": "half_circle", "label": "Halbkreis" }, { "value": "sparkle", "label": "Funkeln" }, { "value": "clock", "label": "Uhr" }, { "value": "sun", "label": "Sonne" }, { "value": "drop", "label": "Tropfen" }, { "value": "heart", "label": "Herz" }, { "value": "leaf", "label": "Blatt" }, { "value": "shield", "label": "Schild" }, { "value": "star", "label": "Stern" }, { "value": "truck", "label": "Versand" }, { "value": "gift", "label": "Geschenk" }, { "value": "eye", "label": "Auge" }, { "value": "users", "label": "Personen" }, { "value": "flask", "label": "Labor" }, { "value": "check", "label": "Haken" }, { "value": "refresh", "label": "Erneuern" }
         ] },
-        { "type": "text", "id": "text_2", "label": "Text 2", "default": "Kaschiert Unebenheiten" },
+        { "type": "text", "id": "text_2", "label": "Text 2", "default": "Hides imperfections" },
         { "type": "select", "id": "icon_3", "label": "Icon 3", "default": "clock", "options": [
           { "value": "none", "label": "Kein Icon" }, { "value": "half_circle", "label": "Halbkreis" }, { "value": "sparkle", "label": "Funkeln" }, { "value": "clock", "label": "Uhr" }, { "value": "sun", "label": "Sonne" }, { "value": "drop", "label": "Tropfen" }, { "value": "heart", "label": "Herz" }, { "value": "leaf", "label": "Blatt" }, { "value": "shield", "label": "Schild" }, { "value": "star", "label": "Stern" }, { "value": "truck", "label": "Versand" }, { "value": "gift", "label": "Geschenk" }, { "value": "eye", "label": "Auge" }, { "value": "users", "label": "Personen" }, { "value": "flask", "label": "Labor" }, { "value": "check", "label": "Haken" }, { "value": "refresh", "label": "Erneuern" }
         ] },
-        { "type": "text", "id": "text_3", "label": "Text 3", "default": "Natürlicher Look, 16+ Stunden" },
+        { "type": "text", "id": "text_3", "label": "Text 3", "default": "Natural look, 16+ hours" },
         { "type": "select", "id": "icon_4", "label": "Icon 4", "default": "sun", "options": [
           { "value": "none", "label": "Kein Icon" }, { "value": "half_circle", "label": "Halbkreis" }, { "value": "sparkle", "label": "Funkeln" }, { "value": "clock", "label": "Uhr" }, { "value": "sun", "label": "Sonne" }, { "value": "drop", "label": "Tropfen" }, { "value": "heart", "label": "Herz" }, { "value": "leaf", "label": "Blatt" }, { "value": "shield", "label": "Schild" }, { "value": "star", "label": "Stern" }, { "value": "truck", "label": "Versand" }, { "value": "gift", "label": "Geschenk" }, { "value": "eye", "label": "Auge" }, { "value": "users", "label": "Personen" }, { "value": "flask", "label": "Labor" }, { "value": "check", "label": "Haken" }, { "value": "refresh", "label": "Erneuern" }
         ] },
-        { "type": "text", "id": "text_4", "label": "Text 4", "default": "Mit LSF 15" }
+        { "type": "text", "id": "text_4", "label": "Text 4", "default": "With SPF 15" }
       ]
     },
     {
@@ -467,7 +467,7 @@
       "name": "Warenkorb-Button",
       "limit": 1,
       "settings": [
-        { "type": "text", "id": "label", "label": "Button-Text", "default": "In den Warenkorb" },
+        { "type": "text", "id": "label", "label": "Button-Text", "default": "Add to bag" },
         { "type": "checkbox", "id": "show_price", "label": "Preis im Button anzeigen", "default": true },
         { "type": "checkbox", "id": "uppercase", "label": "Großbuchstaben", "default": true },
         { "type": "checkbox", "id": "show_dynamic_checkout", "label": "Express-Checkout-Buttons anzeigen", "default": false }
@@ -478,9 +478,9 @@
       "name": "Versand-Zeile",
       "limit": 1,
       "settings": [
-        { "type": "text", "id": "left_text", "label": "Text links", "default": "Versand noch heute" },
-        { "type": "text", "id": "country_code", "label": "Ländercode", "default": "DE" },
-        { "type": "inline_richtext", "id": "right_text", "label": "Text rechts", "default": "Kostenloser Versand nach <a href=\"/policies/shipping-policy\">Deutschland</a>" }
+        { "type": "text", "id": "left_text", "label": "Text links", "default": "Shipped today" },
+        { "type": "text", "id": "country_code", "label": "Ländercode", "default": "AU" },
+        { "type": "inline_richtext", "id": "right_text", "label": "Text rechts", "default": "Free shipping in <a href=\"/policies/shipping-policy\">Australia</a>" }
       ]
     },
     {
@@ -488,12 +488,12 @@
       "name": "Lagerbestand & Countdown",
       "limit": 1,
       "settings": [
-        { "type": "text", "id": "title", "label": "Überschrift", "default": "Fast ausverkauft" },
-        { "type": "text", "id": "text", "label": "Text", "default": "Aufgrund hoher Nachfrage nur noch begrenzt verfügbar" },
+        { "type": "text", "id": "title", "label": "Überschrift", "default": "Selling out fast" },
+        { "type": "text", "id": "text", "label": "Text", "default": "Due to high demand, limited quantities available" },
         { "type": "range", "id": "percent", "label": "Verkauft (%)", "min": 1, "max": 100, "step": 1, "default": 91 },
-        { "type": "text", "id": "sold_text", "label": "Verkauft-Text", "default": "[percent]% verkauft", "info": "[percent] wird durch den Prozentwert ersetzt." },
+        { "type": "text", "id": "sold_text", "label": "Verkauft-Text", "default": "[percent]% sold", "info": "[percent] wird durch den Prozentwert ersetzt." },
         { "type": "checkbox", "id": "show_countdown", "label": "Countdown anzeigen (bis Mitternacht)", "default": true },
-        { "type": "text", "id": "countdown_text", "label": "Countdown-Text", "default": "Endet in" }
+        { "type": "text", "id": "countdown_text", "label": "Countdown-Text", "default": "Ends in" }
       ]
     },
     {
@@ -501,16 +501,16 @@
       "name": "Garantie-Box",
       "settings": [
         { "type": "text", "id": "badge", "label": "Badge", "default": "30" },
-        { "type": "text", "id": "title", "label": "Überschrift", "default": "30 Tage Geld-zurück-Garantie" },
-        { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Teste ganz ohne Risiko. Wenn sich unsere Foundation nicht perfekt an deinen Hautton anpasst, bekommst du dein Geld zurück.*</p>" }
+        { "type": "text", "id": "title", "label": "Überschrift", "default": "30-Day Money-Back Guarantee" },
+        { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Try it worry-free. If our skin-adapting foundation doesn't blend seamlessly with your tone, you'll get your money back.*</p>" }
       ]
     },
     {
       "type": "accordion",
       "name": "Aufklapp-Element",
       "settings": [
-        { "type": "text", "id": "heading", "label": "Überschrift", "default": "Was macht sie besonders?" },
-        { "type": "richtext", "id": "content", "label": "Inhalt", "default": "<p>Hier kannst du Details zu deinem Produkt beschreiben.</p>" },
+        { "type": "text", "id": "heading", "label": "Überschrift", "default": "What makes it different?" },
+        { "type": "richtext", "id": "content", "label": "Inhalt", "default": "<p>Describe the details of your product here.</p>" },
         { "type": "page", "id": "page", "label": "Inhalt aus Seite" },
         { "type": "checkbox", "id": "open", "label": "Standardmäßig geöffnet", "default": false }
       ]
@@ -530,7 +530,7 @@
       { "value": "cover", "label": "Füllen" }, { "value": "contain", "label": "Einpassen" }
     ] },
     { "type": "checkbox", "id": "show_thumbnails", "label": "Vorschaubilder anzeigen", "default": true },
-    { "type": "checkbox", "id": "hide_thumbnails_mobile", "label": "Vorschaubilder mobil ausblenden (Punkte anzeigen)", "default": true },
+    { "type": "checkbox", "id": "hide_thumbnails_mobile", "label": "Vorschaubilder mobil ausblenden (Punkte anzeigen)", "default": false },
     { "type": "range", "id": "thumbnail_limit", "label": "Max. Vorschaubilder", "min": 3, "max": 20, "step": 1, "default": 14 },
     { "type": "header", "content": "Badges auf dem Bild (optional)" },
     { "type": "image_picker", "id": "badge_image", "label": "Rundes Badge-Bild (z. B. Flagge)" },
@@ -546,7 +546,7 @@
     { "type": "color", "id": "button_text_color", "label": "Button-Text", "default": "#ffffff" },
     { "type": "header", "content": "Sticky Warenkorb-Leiste" },
     { "type": "checkbox", "id": "enable_sticky_atc", "label": "Aktivieren", "default": true },
-    { "type": "text", "id": "sticky_label", "label": "Button-Text", "default": "In den Warenkorb" },
+    { "type": "text", "id": "sticky_label", "label": "Button-Text", "default": "Add to bag" },
     { "type": "header", "content": "Abstände" },
     { "type": "range", "id": "padding_top", "label": "Abstand oben", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 32 },
     { "type": "range", "id": "padding_bottom", "label": "Abstand unten", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 48 }

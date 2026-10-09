@@ -74,9 +74,11 @@
 .y-gallery__dots span { width: 6px; height: 6px; border-radius: 50%; background: var(--y-border); }
 .y-gallery__dots span.is-active { background: var(--y-accent-dark); }
 @media (max-width: 749px) {
-  .y-gallery__thumbs--hide-mobile { display: none; }
+  .y-gallery__thumbs--hide-mobile { display: none !important; }
   .y-gallery__thumbs--hide-mobile + .y-gallery__dots { display: flex; }
-  .y-gallery__thumbs { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .y-gallery__thumbs { display: flex; gap: 8px; margin-top: 12px; overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; -webkit-overflow-scrolling: touch; padding-bottom: 2px; }
+  .y-gallery__thumbs::-webkit-scrollbar { display: none; }
+  .y-gallery__thumb { flex: 0 0 58px; width: 58px; height: 58px; scroll-snap-align: start; }
 }
 
 .y-info { display: flex; flex-direction: column; gap: 18px; }

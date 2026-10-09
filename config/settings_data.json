@@ -107,7 +107,7 @@
     "badge_position": "bottom left",
     "badge_corner_radius": 40,
     "sale_badge_color_scheme": "accent-2",
-    "sale_badge_text": "[percentage] SPAREN",
+    "sale_badge_text": "SAVE [percentage]",
     "sold_out_badge_color_scheme": "inverse",
     "accent_icons": "text",
     "brand_headline": "",
@@ -133,10 +133,10 @@
     "cart_trust_badges_width": 100,
     "cart_drawer_collection": "",
     "enable_cart_discount": true,
-    "cart_discount_placeholder": "Rabattcode eingeben",
+    "cart_discount_placeholder": "Enter discount code",
     "cart_discount_btn_label": "+",
     "enable_countdown_timer": true,
-    "timer_text": "🚚 Kostenloser DHL Versand (inkl. Sendungsverfolgung)",
+    "timer_text": "🚚 Free shipping Australia-wide",
     "font_size": "1.2",
     "color_scheme": "background-2",
     "margin_bottom": 0,
@@ -173,12 +173,33 @@
       "cart-drawer": {
         "type": "cart-drawer",
         "blocks": {
-          "gift_1": { "type": "gift", "settings": { "minimum": 0 } },
-          "gift_2": { "type": "gift", "settings": { "minimum": 0 } },
-          "upsell_1": { "type": "upsell", "settings": {} },
-          "upsell_2": { "type": "upsell", "settings": {} }
+          "gift_1": {
+            "type": "gift",
+            "settings": {
+              "minimum": 0
+            }
+          },
+          "gift_2": {
+            "type": "gift",
+            "settings": {
+              "minimum": 0
+            }
+          },
+          "upsell_1": {
+            "type": "upsell",
+            "settings": {}
+          },
+          "upsell_2": {
+            "type": "upsell",
+            "settings": {}
+          }
         },
-        "block_order": ["gift_1", "gift_2", "upsell_1", "upsell_2"],
+        "block_order": [
+          "gift_1",
+          "gift_2",
+          "upsell_1",
+          "upsell_2"
+        ],
         "settings": {}
       },
       "promo-popup": {

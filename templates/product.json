@@ -54,43 +54,43 @@
         "acc_1": {
           "type": "accordion",
           "settings": {
-            "heading": "Was macht sie besonders?",
-            "content": "<p>Unsere Foundation enthält farbverändernde Pigmente, die sich beim Auftragen an deinen individuellen Hautton anpassen – für einen natürlichen Look ohne Farbton-Suche.</p>"
+            "heading": "What makes it different?",
+            "content": "<p>Our foundation contains colour-changing pigments that adapt to your individual skin tone as you apply — for a natural look without the shade hunt.</p>"
           }
         },
         "acc_2": {
           "type": "accordion",
           "settings": {
-            "heading": "Funktioniert sie bei meiner Haut?",
-            "content": "<p>Die Formel wurde für reife Haut entwickelt und passt sich hellen bis mittleren Hauttönen an.</p>"
+            "heading": "Does it work on my skin?",
+            "content": "<p>The formula was developed for mature skin and adapts to light to medium skin tones.</p>"
           }
         },
         "acc_3": {
           "type": "accordion",
           "settings": {
-            "heading": "Wie wende ich sie an?",
-            "content": "<p>Eine kleine Menge auf Stirn, Wangen und Kinn geben und sanft verblenden – mit den Fingern, einem Pinsel oder einem Schwämmchen.</p>"
+            "heading": "How do I use it?",
+            "content": "<p>Dot a small amount on your forehead, cheeks and chin, then blend gently — with your fingers, a brush or a sponge.</p>"
           }
         },
         "acc_4": {
           "type": "accordion",
           "settings": {
-            "heading": "Wie funktioniert die Geld-zurück-Garantie?",
-            "content": "<p>Du hast 30 Tage Zeit, die Foundation zu testen. Bist du nicht zufrieden, erstatten wir dir den Kaufpreis.</p>"
+            "heading": "How does the money-back guarantee work?",
+            "content": "<p>You have 30 days to try the foundation. If you're not happy, we'll refund your purchase.</p>"
           }
         },
         "acc_5": {
           "type": "accordion",
           "settings": {
-            "heading": "Inhaltsstoffe",
-            "content": "<p>Hier die vollständige Liste der Inhaltsstoffe einfügen.</p>"
+            "heading": "Ingredients",
+            "content": "<p>Add the full ingredient list here.</p>"
           }
         },
         "acc_6": {
           "type": "accordion",
           "settings": {
-            "heading": "Versand & Rückgabe",
-            "content": "<p>Kostenloser Versand innerhalb Deutschlands. Bearbeitungszeit 1–2 Werktage, Lieferzeit 3–7 Werktage. Rückgabe innerhalb von 30 Tagen.</p>"
+            "heading": "Shipping and returns",
+            "content": "<p>Free shipping within Australia. Orders are processed in 1–2 business days and delivered in 3–7 business days. Returns accepted within 30 days.</p>"
           }
         }
       },
@@ -128,19 +128,19 @@
         "review_2": {
           "type": "review",
           "settings": {
-            "name": "Susanne M."
+            "name": "Susan M."
           }
         },
         "review_3": {
           "type": "review",
           "settings": {
-            "name": "Doris W."
+            "name": "Debra W."
           }
         },
         "review_4": {
           "type": "review",
           "settings": {
-            "name": "Petra K."
+            "name": "Patricia K."
           }
         }
       },
@@ -159,14 +159,14 @@
           "type": "bullet",
           "settings": {
             "icon": "half_circle",
-            "text": "Passt sich deinem Hautton an"
+            "text": "Adapts to your skin tone"
           }
         },
         "bullet_2": {
           "type": "bullet",
           "settings": {
             "icon": "sparkle",
-            "text": "Kaschiert Unebenheiten"
+            "text": "Hides imperfections"
           }
         }
       },
@@ -182,25 +182,25 @@
         "step_1": {
           "type": "step",
           "settings": {
-            "label": "01 · In Sekunden",
-            "title": "Intelligente Pigmente erwachen",
-            "text": "<p>Beim Auftragen brechen winzige Pigmentkapseln auf und passen sich deinem Hautton an.</p>"
+            "label": "01 · In seconds",
+            "title": "Intelligent pigments wake up",
+            "text": "<p>As you apply, tiny pigment capsules burst open and adapt to your skin tone.</p>"
           }
         },
         "step_2": {
           "type": "step",
           "settings": {
-            "label": "02 · Beim Verblenden",
-            "title": "Dein exakter Farbton entsteht",
-            "text": "<p>Während du verblendest, gleicht die Formel Rötungen und Altersflecken aus – für einen ebenmäßigen Teint.</p>"
+            "label": "02 · As you blend",
+            "title": "Your exact shade appears",
+            "text": "<p>As you blend, the formula evens out redness and age spots — for a smooth, even complexion.</p>"
           }
         },
         "step_3": {
           "type": "step",
           "settings": {
-            "label": "03 · Den ganzen Tag",
-            "title": "Makelloses Finish – den ganzen Tag",
-            "text": "<p>Leicht, atmungsaktiv und langanhaltend – ohne sich in Fältchen abzusetzen. Mit LSF 15.</p>"
+            "label": "03 · All day long",
+            "title": "Flawless finish — all day",
+            "text": "<p>Lightweight, breathable and long-lasting — without settling into fine lines. With SPF 15.</p>"
           }
         }
       },
@@ -212,7 +212,7 @@
       "settings": {
         "image_position": "right",
         "image_ratio": "4 / 5",
-        "heading": "So funktioniert's",
+        "heading": "How does it work?",
         "text": ""
       }
     },
@@ -223,21 +223,21 @@
           "type": "stat",
           "settings": {
             "value": "94%",
-            "text": "sagen, dass ihre Haut sofort ebenmäßiger aussah*"
+            "text": "said their skin instantly looked more even*"
           }
         },
         "stat_2": {
           "type": "stat",
           "settings": {
             "value": "97%",
-            "text": "fanden, dass sich der Farbton perfekt anpasst*"
+            "text": "said the shade matched perfectly*"
           }
         },
         "stat_3": {
           "type": "stat",
           "settings": {
             "value": "92%",
-            "text": "bemerkten weniger sichtbare Fältchen*"
+            "text": "noticed fewer visible fine lines*"
           }
         }
       },
@@ -254,31 +254,31 @@
         "row_1": {
           "type": "row",
           "settings": {
-            "text": "Passt sich dem Hautton an"
+            "text": "Adapts to skin tone"
           }
         },
         "row_2": {
           "type": "row",
           "settings": {
-            "text": "LSF 15"
+            "text": "SPF 15"
           }
         },
         "row_3": {
           "type": "row",
           "settings": {
-            "text": "Setzt sich nicht in Fältchen ab"
+            "text": "Doesn't settle into fine lines"
           }
         },
         "row_4": {
           "type": "row",
           "settings": {
-            "text": "Federleicht auf der Haut"
+            "text": "Feather-light on skin"
           }
         },
         "row_5": {
           "type": "row",
           "settings": {
-            "text": "Kein Maskeneffekt"
+            "text": "No cakey look"
           }
         }
       },
@@ -297,57 +297,57 @@
         "faq_1": {
           "type": "question",
           "settings": {
-            "question": "Wie trage ich sie auf?",
-            "answer": "<p>Eine kleine Menge mit den Fingern, einem Pinsel oder einem Schwämmchen auftragen und sanft verblenden.</p>"
+            "question": "How do I apply it?",
+            "answer": "<p>Apply a small amount with your fingers, a brush or a sponge and blend gently.</p>"
           }
         },
         "faq_2": {
           "type": "question",
           "settings": {
-            "question": "Wie lange hält sie?",
-            "answer": "<p>Bis zu 16 Stunden – ohne Nachpudern.</p>"
+            "question": "How long does it last?",
+            "answer": "<p>Up to 16 hours, with no touch-ups needed.</p>"
           }
         },
         "faq_3": {
           "type": "question",
           "settings": {
-            "question": "Wie stark ist die Deckkraft?",
-            "answer": "<p>Leicht bis mittel und schichtbar – für ein natürliches Ergebnis.</p>"
+            "question": "What's the coverage like?",
+            "answer": "<p>Light to medium and buildable — for a natural finish.</p>"
           }
         },
         "faq_4": {
           "type": "question",
           "settings": {
-            "question": "Ist sie für empfindliche Haut geeignet?",
-            "answer": "<p>Ja, die Formel ist dermatologisch getestet und parfümfrei.</p>"
+            "question": "Is it suitable for sensitive skin?",
+            "answer": "<p>Yes, the formula is dermatologically tested and fragrance-free.</p>"
           }
         },
         "faq_5": {
           "type": "question",
           "settings": {
-            "question": "Wie funktioniert die Geld-zurück-Garantie?",
-            "answer": "<p>Du hast 30 Tage Zeit, die Foundation zu testen. Bist du nicht zufrieden, erstatten wir dir den Kaufpreis.</p>"
+            "question": "How does the money-back guarantee work?",
+            "answer": "<p>You have 30 days to try the foundation. If you're not happy, we'll refund your purchase.</p>"
           }
         },
         "faq_6": {
           "type": "question",
           "settings": {
-            "question": "Wohin versendet ihr?",
-            "answer": "<p>Wir versenden nach Deutschland, Österreich und in die Schweiz.</p>"
+            "question": "Where do you ship to?",
+            "answer": "<p>We ship Australia-wide, with free shipping on every order.</p>"
           }
         },
         "faq_7": {
           "type": "question",
           "settings": {
-            "question": "Kann ich meine Bestellung zurückgeben?",
-            "answer": "<p>Ja, innerhalb von 30 Tagen nach Erhalt.</p>"
+            "question": "Can I return my order?",
+            "answer": "<p>Yes, within 30 days of delivery.</p>"
           }
         },
         "faq_8": {
           "type": "question",
           "settings": {
-            "question": "Fallen Zölle oder Steuern an?",
-            "answer": "<p>Innerhalb der EU fallen keine zusätzlichen Zölle an.</p>"
+            "question": "Do I have to pay duties or taxes?",
+            "answer": "<p>No. Orders within Australia have no extra duties or taxes. GST is included in the price.</p>"
           }
         }
       },
@@ -370,23 +370,23 @@
           "type": "card",
           "settings": {
             "title": "Glycerin",
-            "text": "<p>Spendet Feuchtigkeit für einen frischen, prallen Look.</p>",
-            "pill": "Feuchtigkeit"
+            "text": "<p>Hydrates for a fresh, plump-looking complexion.</p>",
+            "pill": "Hydration"
           }
         },
         "card_2": {
           "type": "card",
           "settings": {
             "title": "Vitamin E",
-            "text": "<p>Nährt und schützt mit beruhigendem Vitamin E.</p>",
-            "pill": "Schutz"
+            "text": "<p>Nourishes and protects with soothing vitamin E.</p>",
+            "pill": "Protection"
           }
         },
         "card_3": {
           "type": "card",
           "settings": {
             "title": "Mica",
-            "text": "<p>Lichtreflektierende Pigmente für einen sanften, gesunden Glow.</p>",
+            "text": "<p>Light-reflecting pigments for a soft, healthy glow.</p>",
             "pill": "Glow"
           }
         }
@@ -405,24 +405,24 @@
           "type": "item",
           "settings": {
             "icon": "eye",
-            "title": "Sichtbare Ergebnisse in Sekunden",
-            "text": "Passt sich deinem Hautton beim Auftragen an."
+            "title": "Visible results in seconds",
+            "text": "Adapts to your skin tone as you apply."
           }
         },
         "item_2": {
           "type": "item",
           "settings": {
             "icon": "users",
-            "title": "Über 50.000 Frauen vertrauen uns",
-            "text": "Tausende haben ihren perfekten Farbton gefunden."
+            "title": "Trusted by 50,000+ women",
+            "text": "Thousands have found their perfect shade."
           }
         },
         "item_3": {
           "type": "item",
           "settings": {
             "icon": "leaf",
-            "title": "Clean & tierversuchsfrei",
-            "text": "Vegan und ohne fragwürdige Inhaltsstoffe."
+            "title": "Clean & cruelty-free",
+            "text": "Vegan and free from nasties."
           }
         }
       },

@@ -11,9 +11,15 @@
       var dots = Array.prototype.slice.call(gallery.querySelectorAll('.y-gallery__dots span'));
       if (!track || !slides.length) return;
 
+      var thumbRow = gallery.querySelector('.y-gallery__thumbs');
       function setActive(index) {
         thumbs.forEach(function (t, i) { t.setAttribute('aria-current', i === index ? 'true' : 'false'); });
         dots.forEach(function (d, i) { d.classList.toggle('is-active', i === index); });
+        var active = thumbs[index];
+        if (thumbRow && active && thumbRow.scrollWidth > thumbRow.clientWidth) {
+          var target = active.offsetLeft - thumbRow.offsetLeft - (thumbRow.clientWidth - active.offsetWidth) / 2;
+          thumbRow.scrollTo({ left: Math.max(0, target), behavior: 'smooth' });
+        }
       }
       function goTo(index) {
         track.scrollTo({ left: slides[index].offsetLeft - track.offsetLeft, behavior: 'smooth' });
