@@ -1,0 +1,127 @@
+{{ 'yumi-pdp.css' | asset_url | stylesheet_tag }}
+<style>
+  #shopify-section-{{ section.id }} .y-section {
+    --y-bg: {{ section.settings.background | default: '#ffffff' }};
+    --y-pt: {{ section.settings.padding_top }}px;
+    --y-pb: {{ section.settings.padding_bottom }}px;
+    --c-btn: {{ section.settings.button_color }};
+    --c-btn-text: {{ section.settings.button_text_color }};
+  }
+</style>
+
+{%- assign contact_form_id = 'ContactForm-' | append: section.id -%}
+<div class="y-section">
+  <div class="y-container">
+    <div class="y-contact">
+      <div class="y-contact__intro">
+        {%- if section.settings.eyebrow != blank -%}<span class="y-eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+        {%- if section.settings.heading != blank -%}<h1 class="y-contact__heading">{{ section.settings.heading }}</h1>{%- endif -%}
+        {%- if section.settings.text != blank -%}<div class="y-contact__text">{{ section.settings.text }}</div>{%- endif -%}
+        {%- if section.blocks.size > 0 -%}
+          <ul class="y-contact__list" role="list">
+            {%- for block in section.blocks -%}
+              <li class="y-contact__item" {{ block.shopify_attributes }}>
+                <span class="y-contact__icon">{% render 'yumi-icon', icon: block.settings.icon %}</span>
+                <div>
+                  <p class="y-contact__item-title">{{ block.settings.title }}</p>
+                  {%- if block.settings.text != blank -%}<p class="y-contact__item-text">{{ block.settings.text }}</p>{%- endif -%}
+                </div>
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+      </div>
+
+      <div class="y-contact__card">
+        {%- form 'contact', id: contact_form_id, class: 'y-contact__form' -%}
+          {%- if form.posted_successfully? -%}
+            <div class="y-contact__status y-contact__status--ok" role="status" tabindex="-1" autofocus>
+              {% render 'yumi-icon', icon: 'check' %}<span>{{ section.settings.success_text }}</span>
+            </div>
+          {%- elsif form.errors -%}
+            <div class="y-contact__status y-contact__status--error" role="alert" tabindex="-1" autofocus>
+              <span>{{ form.errors | default_errors }}</span>
+            </div>
+          {%- endif -%}
+
+          <div class="y-field">
+            <label for="{{ contact_form_id }}-name">{{ section.settings.name_label }}</label>
+            <input id="{{ contact_form_id }}-name" type="text" name="contact[name]" autocomplete="name" placeholder="{{ section.settings.name_placeholder | escape }}" value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}">
+          </div>
+          <div class="y-field">
+            <label for="{{ contact_form_id }}-email">{{ section.settings.email_label }} <span aria-hidden="true">*</span></label>
+            <input id="{{ contact_form_id }}-email" type="email" name="contact[email]" autocomplete="email" required spellcheck="false" autocapitalize="off" placeholder="{{ section.settings.email_placeholder | escape }}" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"{% if form.errors contains 'email' %} aria-invalid="true"{% endif %}>
+          </div>
+          {%- if section.settings.show_phone -%}
+            <div class="y-field">
+              <label for="{{ contact_form_id }}-phone">{{ section.settings.phone_label }}</label>
+              <input id="{{ contact_form_id }}-phone" type="tel" name="contact[phone]" autocomplete="tel" pattern="[0-9\-\+\s\(\)]*" value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}">
+            </div>
+          {%- endif -%}
+          <div class="y-field">
+            <label for="{{ contact_form_id }}-body">{{ section.settings.message_label }}</label>
+            <textarea id="{{ contact_form_id }}-body" name="contact[body]" rows="6" placeholder="{{ section.settings.message_placeholder | escape }}">{{ form.body }}</textarea>
+          </div>
+          <button type="submit" class="y-contact__submit">{{ section.settings.button_label }}</button>
+          {%- if section.settings.note != blank -%}<p class="y-contact__note">{{ section.settings.note }}</p>{%- endif -%}
+        {%- endform -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "YUMI Kontakt",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "paragraph", "content": "Nachrichten gehen an die Kontakt-E-Mail deines Shops (Einstellungen → Store-Details)." },
+    { "type": "text", "id": "eyebrow", "label": "Kleine Überschrift", "default": "We're here to help" },
+    { "type": "text", "id": "heading", "label": "Überschrift", "default": "Get in touch" },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Questions about your order, our foundation or your subscription? Send us a message and a real person will get back to you.</p>" },
+    { "type": "header", "content": "Formular" },
+    { "type": "text", "id": "name_label", "label": "Label Name", "default": "Name" },
+    { "type": "text", "id": "name_placeholder", "label": "Platzhalter Name", "default": "What's your name?" },
+    { "type": "text", "id": "email_label", "label": "Label E-Mail", "default": "Email" },
+    { "type": "text", "id": "email_placeholder", "label": "Platzhalter E-Mail", "default": "you@example.com" },
+    { "type": "checkbox", "id": "show_phone", "label": "Telefonfeld anzeigen", "default": false },
+    { "type": "text", "id": "phone_label", "label": "Label Telefon", "default": "Phone" },
+    { "type": "text", "id": "message_label", "label": "Label Nachricht", "default": "Message" },
+    { "type": "text", "id": "message_placeholder", "label": "Platzhalter Nachricht", "default": "How can we help?" },
+    { "type": "text", "id": "button_label", "label": "Button-Text", "default": "Send message" },
+    { "type": "text", "id": "note", "label": "Hinweis unter dem Button", "default": "Average response time: under 24 hours" },
+    { "type": "text", "id": "success_text", "label": "Erfolgsmeldung", "default": "Thanks for reaching out! We'll get back to you within 24 hours." },
+    { "type": "header", "content": "Farben & Layout" },
+    { "type": "color", "id": "button_color", "label": "Button", "default": "#1d1a1c" },
+    { "type": "color", "id": "button_text_color", "label": "Button-Text", "default": "#ffffff" },
+    { "type": "color_background", "id": "background", "label": "Hintergrund", "default": "linear-gradient(180deg, #ffffff 0%, #fcf0f5 100%)" },
+    { "type": "range", "id": "padding_top", "label": "Abstand oben", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 72 },
+    { "type": "range", "id": "padding_bottom", "label": "Abstand unten", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 88 }
+  ],
+  "blocks": [
+    {
+      "type": "info",
+      "name": "Kontaktpunkt",
+      "limit": 6,
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icon", "default": "mail", "options": [
+          { "value": "mail", "label": "E-Mail" }, { "value": "clock", "label": "Uhr" }, { "value": "truck", "label": "Versand" }, { "value": "phone", "label": "Telefon" }, { "value": "chat", "label": "Chat" }, { "value": "pin", "label": "Standort" }, { "value": "heart", "label": "Herz" }, { "value": "shield", "label": "Schild" }
+        ] },
+        { "type": "text", "id": "title", "label": "Titel", "default": "Email us" },
+        { "type": "inline_richtext", "id": "text", "label": "Text", "default": "<a href=\"mailto:support@yumi-cosmetics.com\">support@yumi-cosmetics.com</a>", "info": "Links werden pink hervorgehoben." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "YUMI Kontakt",
+      "blocks": [
+        { "type": "info", "settings": { "icon": "mail", "title": "Email us" } },
+        { "type": "info", "settings": { "icon": "clock", "title": "Response time", "text": "We reply within 24 hours, Monday–Saturday" } },
+        { "type": "info", "settings": { "icon": "truck", "title": "Where's my order?", "text": "<a href=\"/pages/track-order\">Track your order here</a>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

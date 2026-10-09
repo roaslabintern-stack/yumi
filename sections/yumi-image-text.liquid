@@ -21,6 +21,12 @@
       </div>
 
       <div class="y-split__content">
+        {%- if section.settings.badge_text != blank -%}
+          <span class="y-origin-badge">
+            {%- if section.settings.badge_prefix != blank -%}<small>{{ section.settings.badge_prefix }}</small>{%- endif -%}
+            {{ section.settings.badge_text }}
+          </span>
+        {%- endif -%}
         {%- if section.settings.eyebrow != blank -%}<span class="y-eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
         {%- if section.settings.heading != blank -%}
           <h2 class="y-heading y-h2 {% if section.settings.highlight_style == 'pill' %}y-hl-pill{% else %}y-hl-text{% endif %}">{{ section.settings.heading }}</h2>
@@ -49,6 +55,13 @@
             {%- endfor -%}
           </div>
         {%- endif -%}
+
+        {%- if section.settings.signature != blank -%}
+          <div class="y-signature">
+            <p class="y-signature__name">{{ section.settings.signature }}</p>
+            {%- if section.settings.signature_detail != blank -%}<p class="y-signature__detail">{{ section.settings.signature_detail }}</p>{%- endif -%}
+          </div>
+        {%- endif -%}
       </div>
     </div>
   </div>
@@ -67,6 +80,8 @@
     { "type": "select", "id": "image_ratio", "label": "Bildformat", "default": "1 / 1", "options": [
       { "value": "1 / 1", "label": "Quadratisch" }, { "value": "4 / 5", "label": "Hochformat" }, { "value": "4 / 3", "label": "Querformat" }
     ] },
+    { "type": "text", "id": "badge_prefix", "label": "Badge-Kürzel (z. B. KR)" },
+    { "type": "text", "id": "badge_text", "label": "Badge-Text (optional)" },
     { "type": "text", "id": "eyebrow", "label": "Kleine Überschrift" },
     { "type": "inline_richtext", "id": "heading", "label": "Überschrift", "default": "Foundation that <em>adapts to you</em>", "info": "Kursiv formatierter Text wird hervorgehoben." },
     { "type": "select", "id": "highlight_style", "label": "Hervorhebung", "default": "pill", "options": [
@@ -76,6 +91,8 @@
     { "type": "select", "id": "bullet_columns", "label": "Spalten für Vorteile", "default": "2", "options": [
       { "value": "1", "label": "1" }, { "value": "2", "label": "2" }
     ] },
+    { "type": "text", "id": "signature", "label": "Signatur (optional)" },
+    { "type": "text", "id": "signature_detail", "label": "Signatur-Zusatz" },
     { "type": "header", "content": "Layout" },
     { "type": "color", "id": "background", "label": "Hintergrundfarbe", "default": "#ffffff" },
     { "type": "range", "id": "max_width", "label": "Max. Breite", "min": 700, "max": 1400, "step": 20, "unit": "px", "default": 900 },
@@ -110,6 +127,19 @@
         { "type": "bullet", "settings": { "icon": "half_circle", "text": "Adapts to your skin tone" } },
         { "type": "bullet", "settings": { "icon": "sparkle", "text": "Hides imperfections" } }
       ]
+    },
+    {
+      "name": "YUMI Story",
+      "settings": {
+        "image_ratio": "4 / 5",
+        "badge_prefix": "KR",
+        "badge_text": "Made with Korean heritage",
+        "eyebrow": "Why we started",
+        "heading": "Born from a Korean beauty ritual",
+        "text": "<p>YUMI began with a simple frustration: after 50, foundation stopped working with our skin. It oxidised, settled into lines and never quite matched.</p><p>So we looked to Korea\u00a0— where skincare and makeup are one, and where fermented, skin-loving ingredients have been trusted for generations. We spent years perfecting a single colour-changing formula that adapts to your tone as you blend, cares for mature skin, and finishes like your skin, only better.</p>",
+        "signature": "The YUMI team",
+        "signature_detail": "Sydney, Australia"
+      }
     },
     {
       "name": "YUMI So funktioniert's",

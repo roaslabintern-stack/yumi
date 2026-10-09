@@ -1,0 +1,74 @@
+{
+  "sections": {
+    "hero": {
+      "type": "yumi-hero",
+      "settings": {}
+    },
+    "ingredients": {
+      "type": "yumi-cards",
+      "blocks": {
+        "card_1": {
+          "type": "card",
+          "settings": {
+            "title": "Glycerin",
+            "text": "<p>Skin-loving glycerin for all-day hydration</p>",
+            "pill": "Hydrating"
+          }
+        },
+        "card_2": {
+          "type": "card",
+          "settings": {
+            "title": "Vitamin E",
+            "text": "<p>Nourishes and protects with skin-soothing vitamin E</p>",
+            "pill": "Nourishing"
+          }
+        },
+        "card_3": {
+          "type": "card",
+          "settings": {
+            "title": "Mica",
+            "text": "<p>Natural mineral pigments for a soft, healthy glow</p>",
+            "pill": "Natural"
+          }
+        }
+      },
+      "block_order": [
+        "card_1",
+        "card_2",
+        "card_3"
+      ],
+      "settings": {
+        "eyebrow": "Powered by K-beauty",
+        "background": "#fdf8fa",
+        "padding_top": 64,
+        "padding_bottom": 72
+      }
+    },
+    "story": {
+      "type": "yumi-image-text",
+      "settings": {
+        "image_ratio": "4 / 5",
+        "badge_prefix": "KR",
+        "badge_text": "Made with Korean heritage",
+        "eyebrow": "Why we started",
+        "heading": "Born from a Korean beauty ritual",
+        "text": "<p>YUMI began with a simple frustration: after 50, foundation stopped working with our skin. It oxidised, settled into lines and never quite matched.</p><p>So we looked to Korea — where skincare and makeup are one, and where fermented, skin-loving ingredients have been trusted for generations. We spent years perfecting a single colour-changing formula that adapts to your tone as you blend, cares for mature skin, and finishes like your skin, only better.</p>",
+        "signature": "The YUMI team",
+        "signature_detail": "Sydney, Australia",
+        "max_width": 1000,
+        "padding_top": 72,
+        "padding_bottom": 72
+      }
+    },
+    "guarantee": {
+      "type": "yumi-guarantee",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "ingredients",
+    "story",
+    "guarantee"
+  ]
+}

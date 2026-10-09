@@ -1,0 +1,42 @@
+{
+  "sections": {
+    "contact": {
+      "type": "yumi-contact",
+      "blocks": {
+        "email": {
+          "type": "info",
+          "settings": {
+            "icon": "mail",
+            "title": "Email us",
+            "text": "<a href=\"mailto:support@yumi-cosmetics.com\">support@yumi-cosmetics.com</a>"
+          }
+        },
+        "time": {
+          "type": "info",
+          "settings": {
+            "icon": "clock",
+            "title": "Response time",
+            "text": "We reply within 24 hours, Monday–Saturday"
+          }
+        },
+        "order": {
+          "type": "info",
+          "settings": {
+            "icon": "truck",
+            "title": "Where's my order?",
+            "text": "<a href=\"/pages/track-order\">Track your order here</a>"
+          }
+        }
+      },
+      "block_order": [
+        "email",
+        "time",
+        "order"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "contact"
+  ]
+}

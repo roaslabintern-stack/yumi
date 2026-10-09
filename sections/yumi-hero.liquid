@@ -1,0 +1,87 @@
+{{ 'yumi-pdp.css' | asset_url | stylesheet_tag }}
+<style>
+  #shopify-section-{{ section.id }} .y-hero {
+    --hero-min: {{ section.settings.height_desktop }}px;
+    --hero-min-mobile: {{ section.settings.height_mobile }}px;
+    --hero-shade: {{ section.settings.overlay | divided_by: 100.0 }};
+    --hero-text: {{ section.settings.text_color }};
+    --hero-hl: {{ section.settings.highlight_color }};
+    --hero-pos: {{ section.settings.image_position }};
+  }
+</style>
+
+<div class="y-section y-hero y-hero--{{ section.settings.content_position }}" style="--y-pt: 0px; --y-pb: 0px;">
+  <div class="y-hero__media">
+    {%- if section.settings.image != blank -%}
+      {%- liquid
+        assign hero_alt = section.settings.image.alt | default: section.settings.heading | strip_html | escape
+        assign hero_class = 'y-hero__img'
+        if section.settings.image_mobile != blank
+          assign hero_class = 'y-hero__img y-hero__img--desktop'
+        endif
+      -%}
+      {{ section.settings.image | image_url: width: 2400 | image_tag: loading: 'eager', fetchpriority: 'high', sizes: '100vw', widths: '750, 1100, 1500, 1800, 2400', class: hero_class, alt: hero_alt }}
+      {%- if section.settings.image_mobile != blank -%}
+        {{ section.settings.image_mobile | image_url: width: 1200 | image_tag: loading: 'eager', sizes: '100vw', widths: '450, 750, 1000, 1200', class: 'y-hero__img y-hero__img--mobile', alt: hero_alt }}
+      {%- endif -%}
+    {%- else -%}
+      {{ 'lifestyle-2' | placeholder_svg_tag: 'y-ph y-hero__img' }}
+    {%- endif -%}
+  </div>
+  <div class="y-hero__shade" aria-hidden="true"></div>
+
+  <div class="y-container y-hero__inner">
+    <div class="y-hero__content">
+      {%- if section.settings.rating_text != blank -%}
+        <p class="y-hero__rating">
+          {%- if section.settings.show_stars -%}
+            <span class="y-stars" aria-hidden="true">
+              {%- for i in (1..5) -%}<svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L10 14.9l-5.2 2.8 1-5.9L1.5 7.7l5.9-.8z"/></svg>{%- endfor -%}
+            </span>
+          {%- endif -%}
+          <span>{{ section.settings.rating_text }}</span>
+        </p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h1 class="y-hero__heading">{{ section.settings.heading }}</h1>
+      {%- endif -%}
+      {%- if section.settings.text != blank -%}
+        <div class="y-hero__text">{{ section.settings.text }}</div>
+      {%- endif -%}
+      {%- if section.settings.button_label != blank -%}
+        <a class="y-hero__btn" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}">{{ section.settings.button_label }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "YUMI Hero",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Bild (Desktop)" },
+    { "type": "image_picker", "id": "image_mobile", "label": "Bild (Mobil, optional)" },
+    { "type": "select", "id": "image_position", "label": "Bildausschnitt", "default": "center top", "options": [
+      { "value": "center top", "label": "Oben" }, { "value": "center center", "label": "Mitte" }, { "value": "center bottom", "label": "Unten" }
+    ] },
+    { "type": "text", "id": "rating_text", "label": "Bewertungszeile", "default": "Loved by 50,000+ customers" },
+    { "type": "checkbox", "id": "show_stars", "label": "Sterne anzeigen", "default": true },
+    { "type": "inline_richtext", "id": "heading", "label": "Überschrift", "default": "Beauty that becomes <em>you.</em>", "info": "Kursiv formatierter Text wird farbig hervorgehoben." },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>YUMI's Korean colour-changing foundation adapts to your exact skin tone as you blend — designed for 50+.</p>" },
+    { "type": "text", "id": "button_label", "label": "Button-Text", "default": "Shop the foundation" },
+    { "type": "url", "id": "button_link", "label": "Button-Link" },
+    { "type": "header", "content": "Layout" },
+    { "type": "select", "id": "content_position", "label": "Textposition (Desktop)", "default": "left", "options": [
+      { "value": "left", "label": "Links" }, { "value": "center", "label": "Mitte" }
+    ] },
+    { "type": "range", "id": "height_desktop", "label": "Mindesthöhe Desktop", "min": 400, "max": 900, "step": 20, "unit": "px", "default": 620 },
+    { "type": "range", "id": "height_mobile", "label": "Mindesthöhe Mobil", "min": 360, "max": 800, "step": 20, "unit": "px", "default": 580 },
+    { "type": "range", "id": "overlay", "label": "Abdunklung unten", "min": 0, "max": 90, "step": 5, "unit": "%", "default": 70 },
+    { "type": "color", "id": "text_color", "label": "Textfarbe", "default": "#ffffff" },
+    { "type": "color", "id": "highlight_color", "label": "Highlight-Farbe", "default": "#f28bbd" }
+  ],
+  "presets": [{ "name": "YUMI Hero" }]
+}
+{% endschema %}
